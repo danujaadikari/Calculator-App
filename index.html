@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header with theme toggle -->
+        <header class="header">
+            <h1 class="title">
+                <i class="fas fa-calculator"></i>
+                Advanced Calculator
+            </h1>
+            <button class="theme-toggle" id="themeToggle">
+                <i class="fas fa-sun"></i>
+            </button>
+        </header>
+
+        <!-- Main calculator section -->
+        <div class="calculator-wrapper">
+            <!-- Calculator -->
+            <div class="calculator">
+                <!-- Display -->
+                <div class="display-container">
+                    <div class="display-secondary" id="previousOperation"></div>
+                    <div class="display-main" id="display">0</div>
+                </div>
+
+                <!-- Mode selector -->
+                <div class="mode-selector">
+                    <button class="mode-btn active" id="basicMode">Basic</button>
+                    <button class="mode-btn" id="scientificMode">Scientific</button>
+                </div>
+
+                <!-- Basic calculator buttons -->
+                <div class="button-grid" id="basicGrid">
+                    <button class="btn btn-clear" onclick="clearAll()">AC</button>
+                    <button class="btn btn-clear" onclick="clearEntry()">C</button>
+                    <button class="btn btn-operator" onclick="inputOperator('/')">&divide;</button>
+                    <button class="btn btn-operator" onclick="deleteDigit()">
+                        <i class="fas fa-backspace"></i>
+                    </button>
+
+                    <button class="btn btn-number" onclick="inputNumber('7')">7</button>
+                    <button class="btn btn-number" onclick="inputNumber('8')">8</button>
+                    <button class="btn btn-number" onclick="inputNumber('9')">9</button>
+                    <button class="btn btn-operator" onclick="inputOperator('*')">&times;</button>
+
+                    <button class="btn btn-number" onclick="inputNumber('4')">4</button>
+                    <button class="btn btn-number" onclick="inputNumber('5')">5</button>
+                    <button class="btn btn-number" onclick="inputNumber('6')">6</button>
+                    <button class="btn btn-operator" onclick="inputOperator('-')">-</button>
+
+                    <button class="btn btn-number" onclick="inputNumber('1')">1</button>
+                    <button class="btn btn-number" onclick="inputNumber('2')">2</button>
+                    <button class="btn btn-number" onclick="inputNumber('3')">3</button>
+                    <button class="btn btn-operator" onclick="inputOperator('+')">+</button>
+
+                    <button class="btn btn-number zero" onclick="inputNumber('0')">0</button>
+                    <button class="btn btn-number" onclick="inputDecimal()">.</button>
+                    <button class="btn btn-operator" onclick="inputOperator('%')">%</button>
+                    <button class="btn btn-equals" onclick="calculate()">=</button>
+                </div>
+
+                <!-- Scientific calculator buttons -->
+                <div class="button-grid scientific-grid" id="scientificGrid" style="display: none;">
+                    <button class="btn btn-clear" onclick="clearAll()">AC</button>
+                    <button class="btn btn-clear" onclick="clearEntry()">C</button>
+                    <button class="btn btn-operator" onclick="deleteDigit()">
+                        <i class="fas fa-backspace"></i>
+                    </button>
+                    <button class="btn btn-operator" onclick="inputOperator('/')">&divide;</button>
+                    <button class="btn btn-operator" onclick="inputOperator('*')">&times;</button>
+
+                    <button class="btn btn-scientific" onclick="inputFunction('sin(')">sin</button>
+                    <button class="btn btn-scientific" onclick="inputFunction('cos(')">cos</button>
+                    <button class="btn btn-scientific" onclick="inputFunction('tan(')">tan</button>
+                    <button class="btn btn-scientific" onclick="inputFunction('log(')">log</button>
+                    <button class="btn btn-scientific" onclick="inputFunction('ln(')">ln</button>
+
+                    <button class="btn btn-number" onclick="inputNumber('7')">7</button>
+                    <button class="btn btn-number" onclick="inputNumber('8')">8</button>
+                    <button class="btn btn-number" onclick="inputNumber('9')">9</button>
+                    <button class="btn btn-operator" onclick="inputOperator('-')">-</button>
+                    <button class="btn btn-operator" onclick="inputOperator('+')">+</button>
+
+                    <button class="btn btn-scientific" onclick="inputFunction('sqrt(')">√</button>
+                    <button class="btn btn-scientific" onclick="inputOperator('^')">x<sup>y</sup></button>
+                    <button class="btn btn-scientific" onclick="inputNumber('3.14159')">π</button>
+                    <button class="btn btn-scientific" onclick="inputNumber('2.71828')">e</button>
+                    <button class="btn btn-scientific" onclick="inputOperator('(')">(</button>
+
+                    <button class="btn btn-number" onclick="inputNumber('4')">4</button>
+                    <button class="btn btn-number" onclick="inputNumber('5')">5</button>
+                    <button class="btn btn-number" onclick="inputNumber('6')">6</button>
+                    <button class="btn btn-operator" onclick="inputOperator('%')">%</button>
+                    <button class="btn btn-scientific" onclick="inputOperator(')')">)</button>
+
+                    <button class="btn btn-number" onclick="inputNumber('1')">1</button>
+                    <button class="btn btn-number" onclick="inputNumber('2')">2</button>
+                    <button class="btn btn-number" onclick="inputNumber('3')">3</button>
+                    <button class="btn btn-number zero" onclick="inputNumber('0')">0</button>
+                    <button class="btn btn-number" onclick="inputDecimal()">.</button>
+
+                    <button class="btn btn-equals" onclick="calculate()" style="grid-column: span 5;">=</button>
+                </div>
+            </div>
+
+            <!-- History Panel -->
+            <div class="history-panel" id="historyPanel">
+                <div class="history-header">
+                    <h3>History</h3>
+                    <button class="btn-clear-history" onclick="clearHistory()">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+                <div class="history-list" id="historyList">
+                    <p class="no-history">No calculations yet</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Unit Converter Section -->
+        <div class="unit-converter" id="unitConverter">
+            <h2>Unit Converter</h2>
+            
+            <div class="converter-tabs">
+                <button class="tab-btn active" onclick="switchConverter('length')">Length</button>
+                <button class="tab-btn" onclick="switchConverter('weight')">Weight</button>
+                <button class="tab-btn" onclick="switchConverter('temperature')">Temperature</button>
+            </div>
+
+            <!-- Length Converter -->
+            <div class="converter-content" id="lengthConverter">
+                <div class="converter-row">
+                    <div class="input-group">
+                        <input type="number" id="lengthFrom" placeholder="0" oninput="convertLength('from')">
+                        <select id="lengthFromUnit" onchange="convertLength('from')">
+                            <option value="m">Meters</option>
+                            <option value="cm">Centimeters</option>
+                            <option value="mm">Millimeters</option>
+                            <option value="km">Kilometers</option>
+                            <option value="in">Inches</option>
+                            <option value="ft">Feet</option>
+                            <option value="yd">Yards</option>
+                            <option value="mi">Miles</option>
+                        </select>
+                    </div>
+                    <div class="converter-arrow">
+                        <i class="fas fa-exchange-alt"></i>
+                    </div>
+                    <div class="input-group">
+                        <input type="number" id="lengthTo" placeholder="0" oninput="convertLength('to')">
+                        <select id="lengthToUnit" onchange="convertLength('from')">
+                            <option value="ft">Feet</option>
+                            <option value="m">Meters</option>
+                            <option value="cm">Centimeters</option>
+                            <option value="mm">Millimeters</option>
+                            <option value="km">Kilometers</option>
+                            <option value="in">Inches</option>
+                            <option value="yd">Yards</option>
+                            <option value="mi">Miles</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Weight Converter -->
+            <div class="converter-content" id="weightConverter" style="display: none;">
+                <div class="converter-row">
+                    <div class="input-group">
+                        <input type="number" id="weightFrom" placeholder="0" oninput="convertWeight('from')">
+                        <select id="weightFromUnit" onchange="convertWeight('from')">
+                            <option value="kg">Kilograms</option>
+                            <option value="g">Grams</option>
+                            <option value="lb">Pounds</option>
+                            <option value="oz">Ounces</option>
+                            <option value="stone">Stone</option>
+                            <option value="ton">Metric Tons</option>
+                        </select>
+                    </div>
+                    <div class="converter-arrow">
+                        <i class="fas fa-exchange-alt"></i>
+                    </div>
+                    <div class="input-group">
+                        <input type="number" id="weightTo" placeholder="0" oninput="convertWeight('to')">
+                        <select id="weightToUnit" onchange="convertWeight('from')">
+                            <option value="lb">Pounds</option>
+                            <option value="kg">Kilograms</option>
+                            <option value="g">Grams</option>
+                            <option value="oz">Ounces</option>
+                            <option value="stone">Stone</option>
+                            <option value="ton">Metric Tons</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Temperature Converter -->
+            <div class="converter-content" id="temperatureConverter" style="display: none;">
+                <div class="converter-row">
+                    <div class="input-group">
+                        <input type="number" id="tempFrom" placeholder="0" oninput="convertTemperature('from')">
+                        <select id="tempFromUnit" onchange="convertTemperature('from')">
+                            <option value="c">Celsius</option>
+                            <option value="f">Fahrenheit</option>
+                            <option value="k">Kelvin</option>
+                        </select>
+                    </div>
+                    <div class="converter-arrow">
+                        <i class="fas fa-exchange-alt"></i>
+                    </div>
+                    <div class="input-group">
+                        <input type="number" id="tempTo" placeholder="0" oninput="convertTemperature('to')">
+                        <select id="tempToUnit" onchange="convertTemperature('from')">
+                            <option value="f">Fahrenheit</option>
+                            <option value="c">Celsius</option>
+                            <option value="k">Kelvin</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
