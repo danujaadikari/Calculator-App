@@ -158,6 +158,12 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 If you encounter any issues or have suggestions, please [open an issue](https://github.com/danujaadikari/Calculator-App/issues) on GitHub.
 
+## 👨‍💻 Developer
+
+**Developed by:** Danuja Adikari  
+**Email:** [danujadikari2001@gmail.com](mailto:danujadikari2001@gmail.com)  
+**GitHub:** [@danujaadikari](https://github.com/danujaadikari)
+
 ---
 
 **Made with ❤️ by [Danuja Adikari](https://github.com/danujaadikari)**
