@@ -16,7 +16,7 @@
                 <i class="fas fa-calculator"></i>
                 Advanced Calculator
             </h1>
-            <button class="theme-toggle" id="themeToggle">
+            <button class="theme-toggle" id="themeToggle" title="Toggle dark/light mode">
                 <i class="fas fa-sun"></i>
             </button>
         </header>
@@ -42,7 +42,7 @@
                     <button class="btn btn-clear" onclick="clearAll()">AC</button>
                     <button class="btn btn-clear" onclick="clearEntry()">C</button>
                     <button class="btn btn-operator" onclick="inputOperator('/')">&divide;</button>
-                    <button class="btn btn-operator" onclick="deleteDigit()">
+                    <button class="btn btn-operator" onclick="deleteDigit()" title="Delete last digit">
                         <i class="fas fa-backspace"></i>
                     </button>
 
@@ -115,7 +115,7 @@
             <div class="history-panel" id="historyPanel">
                 <div class="history-header">
                     <h3>History</h3>
-                    <button class="btn-clear-history" onclick="clearHistory()">
+                    <button class="btn-clear-history" onclick="clearHistory()" title="Clear calculation history">
                         <i class="fas fa-trash"></i>
                     </button>
                 </div>
