@@ -107,7 +107,7 @@
                     <button class="btn btn-number zero" onclick="inputNumber('0')">0</button>
                     <button class="btn btn-number" onclick="inputDecimal()">.</button>
 
-                    <button class="btn btn-equals" onclick="calculate()" style="grid-column: span 5;">=</button>
+                    <button class="btn btn-equals full-width" onclick="calculate()">=</button>
                 </div>
             </div>
 
@@ -171,7 +171,7 @@
             </div>
 
             <!-- Weight Converter -->
-            <div class="converter-content" id="weightConverter" style="display: none;">
+            <div class="converter-content hidden" id="weightConverter">
                 <div class="converter-row">
                     <div class="input-group">
                         <input type="number" id="weightFrom" placeholder="0" oninput="convertWeight('from')">
