@@ -640,6 +640,58 @@ body {
     opacity: 0.6;
 }
 
+/* Developer Information Footer */
+.developer-info {
+    margin-top: 50px;
+    padding: 30px 0;
+    border-top: 1px solid var(--border-color);
+}
+
+.developer-card {
+    background: var(--bg-secondary);
+    border-radius: 15px;
+    padding: 25px;
+    text-align: center;
+    box-shadow: 0 8px 20px var(--shadow-medium);
+    border: 1px solid var(--border-color);
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.developer-card h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--accent-primary);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.developer-card p {
+    margin: 10px 0;
+    font-size: 1rem;
+    color: var(--text-primary);
+}
+
+.developer-card strong {
+    color: var(--accent-primary);
+    font-weight: 600;
+}
+
+.developer-card a {
+    color: var(--accent-primary);
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.developer-card a:hover {
+    color: var(--accent-secondary);
+    text-decoration: underline;
+}
+
 /* High contrast mode support */
 @media (prefers-contrast: high) {
     :root {
