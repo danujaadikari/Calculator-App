@@ -263,8 +263,16 @@ class AdvancedCalculator {
         document.getElementById(mode + 'Mode').classList.add('active');
         
         // Show/hide appropriate grid
-        document.getElementById('basicGrid').style.display = mode === 'basic' ? 'grid' : 'none';
-        document.getElementById('scientificGrid').style.display = mode === 'scientific' ? 'grid' : 'none';
+        const basicGrid = document.getElementById('basicGrid');
+        const scientificGrid = document.getElementById('scientificGrid');
+        
+        if (mode === 'basic') {
+            basicGrid.classList.remove('hidden');
+            scientificGrid.classList.add('hidden');
+        } else {
+            basicGrid.classList.add('hidden');
+            scientificGrid.classList.remove('hidden');
+        }
         
         // Clear calculator when switching modes
         this.clearAll();
@@ -459,9 +467,9 @@ class UnitConverter {
         
         // Show appropriate converter
         document.querySelectorAll('.converter-content').forEach(content => {
-            content.style.display = 'none';
+            content.classList.add('hidden');
         });
-        document.getElementById(type + 'Converter').style.display = 'block';
+        document.getElementById(type + 'Converter').classList.remove('hidden');
         
         // Clear inputs
         this.clearInputs(type);
