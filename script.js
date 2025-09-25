@@ -49,6 +49,11 @@ class AdvancedCalculator {
     updateDisplay() {
         this.display.textContent = this.formatNumber(this.displayValue);
         this.display.classList.remove('error', 'calculating');
+        
+        // Add error class for error states
+        if (this.displayValue === 'Error' || this.displayValue === 'Infinity' || this.displayValue === '-Infinity') {
+            this.display.classList.add('error');
+        }
     }
     
     formatNumber(num) {
@@ -423,7 +428,25 @@ class AdvancedCalculator {
         if (button && button.classList.contains('btn')) {
             button.classList.add('pressed');
             setTimeout(() => button.classList.remove('pressed'), 100);
+            
+            // Add success animation for equals button
+            if (button.classList.contains('btn-equals')) {
+                setTimeout(() => {
+                    button.classList.add('success');
+                    setTimeout(() => button.classList.remove('success'), 600);
+                }, 50);
+            }
         }
+    }
+    
+    // Enhanced calculation with loading state
+    performCalculationWithLoading() {
+        this.display.classList.add('calculating');
+        
+        setTimeout(() => {
+            this.calculate();
+            this.display.classList.remove('calculating');
+        }, 300); // Small delay for visual feedback
     }
 }
 
