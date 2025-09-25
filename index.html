@@ -68,10 +68,10 @@
                 </div>
 
                 <!-- Scientific calculator buttons -->
-                <div class="button-grid scientific-grid" id="scientificGrid" style="display: none;">
+                <div class="button-grid scientific-grid hidden" id="scientificGrid">
                     <button class="btn btn-clear" onclick="clearAll()">AC</button>
                     <button class="btn btn-clear" onclick="clearEntry()">C</button>
-                    <button class="btn btn-operator" onclick="deleteDigit()">
+                    <button class="btn btn-operator" onclick="deleteDigit()" title="Delete last digit">
                         <i class="fas fa-backspace"></i>
                     </button>
                     <button class="btn btn-operator" onclick="inputOperator('/')">&divide;</button>
