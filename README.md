@@ -166,4 +166,4 @@ If you encounter any issues or have suggestions, please [open an issue](https://
 
 ---
 
-**Made with ❤️ by [Danuja Adikari](https://github.com/danujaadikari)**
+**Develop by [Danuja Adikari](https://github.com/danujaadikari)**
