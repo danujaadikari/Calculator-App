@@ -1,17 +1,24 @@
 /* CSS Custom Properties for Theme Management */
 :root {
-    /* Light theme colors */
-    --bg-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    /* Light theme colors - Premium Edition */
+    --bg-primary: 
+        radial-gradient(circle at 20% 20%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(120, 200, 255, 0.3) 0%, transparent 50%),
+        linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
     --bg-secondary: rgba(255, 255, 255, 0.95);
-    --bg-tertiary: rgba(248, 250, 252, 0.8);
+    --bg-tertiary: rgba(248, 250, 252, 0.9);
     --text-primary: #1e293b;
     --text-secondary: #64748b;
-    --border-color: rgba(226, 232, 240, 0.3);
-    --shadow-light: rgba(102, 126, 234, 0.1);
-    --shadow-medium: rgba(102, 126, 234, 0.2);
-    --shadow-heavy: rgba(102, 126, 234, 0.3);
-    --glass-bg: rgba(255, 255, 255, 0.25);
-    --glass-border: rgba(255, 255, 255, 0.18);
+    --border-color: rgba(255, 255, 255, 0.2);
+    --shadow-light: 0 8px 32px rgba(102, 126, 234, 0.15);
+    --shadow-medium: 0 16px 64px rgba(102, 126, 234, 0.2);
+    --shadow-heavy: 0 32px 128px rgba(102, 126, 234, 0.25);
+    --glass-bg: rgba(255, 255, 255, 0.1);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --neumorphism-light: rgba(255, 255, 255, 0.8);
+    --neumorphism-dark: rgba(0, 0, 0, 0.1);
+    --premium-gradient: linear-gradient(145deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
     
     /* Button colors */
     --btn-number: #ffffff;
@@ -32,17 +39,24 @@
 
 /* Dark theme colors */
 [data-theme="dark"] {
-    --bg-primary: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-    --bg-secondary: rgba(30, 41, 59, 0.9);
-    --bg-tertiary: rgba(51, 65, 85, 0.7);
+    --bg-primary: 
+        radial-gradient(circle at 20% 20%, rgba(26, 26, 46, 0.8) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(15, 52, 96, 0.8) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(139, 92, 246, 0.3) 0%, transparent 50%),
+        linear-gradient(135deg, #0f0f23 0%, #1a1a2e 30%, #16213e 60%, #0f3460 100%);
+    --bg-secondary: rgba(30, 41, 59, 0.95);
+    --bg-tertiary: rgba(51, 65, 85, 0.8);
     --text-primary: #f8fafc;
     --text-secondary: #94a3b8;
-    --border-color: rgba(71, 85, 105, 0.3);
-    --shadow-light: rgba(26, 26, 46, 0.4);
-    --shadow-medium: rgba(26, 26, 46, 0.6);
-    --shadow-heavy: rgba(26, 26, 46, 0.8);
-    --glass-bg: rgba(30, 41, 59, 0.3);
+    --border-color: rgba(248, 250, 252, 0.1);
+    --shadow-light: 0 8px 32px rgba(0, 0, 0, 0.3);
+    --shadow-medium: 0 16px 64px rgba(0, 0, 0, 0.4);
+    --shadow-heavy: 0 32px 128px rgba(0, 0, 0, 0.5);
+    --glass-bg: rgba(30, 41, 59, 0.2);
     --glass-border: rgba(248, 250, 252, 0.1);
+    --neumorphism-light: rgba(255, 255, 255, 0.05);
+    --neumorphism-dark: rgba(0, 0, 0, 0.3);
+    --premium-gradient: linear-gradient(145deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
     
     /* Button colors for dark theme */
     --btn-number: rgba(51, 65, 85, 0.8);
