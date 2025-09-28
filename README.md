@@ -166,4 +166,3 @@ If you encounter any issues or have suggestions, please [open an issue](https://
 
 ---
 
-**Develop by [Danuja Adikari](https://github.com/danujaadikari)**
