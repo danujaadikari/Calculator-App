@@ -17,8 +17,18 @@ class AdvancedCalculator {
         this.previousOperation = document.getElementById('previousOperation');
         this.historyList = document.getElementById('historyList');
         
+        // Multi-sensory features
+        this.audioContext = null;
+        this.sounds = {
+            click: { frequency: 800, duration: 0.1 },
+            equals: { frequency: 1200, duration: 0.2 },
+            clear: { frequency: 400, duration: 0.15 },
+            error: { frequency: 200, duration: 0.3 }
+        };
+        
         // Initialize calculator
         this.init();
+        this.initAudio();
     }
     
     init() {
@@ -26,6 +36,25 @@ class AdvancedCalculator {
         this.loadTheme();
         this.setupEventListeners();
         this.updateDisplay();
+        this.initQuantumEffects();
+    }
+    
+    initAudio() {
+        // Initialize Web Audio API for sound effects
+        try {
+            this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        } catch (e) {
+            console.log('Web Audio API not supported');
+        }
+    }
+    
+    initQuantumEffects() {
+        // Add quantum particle effects
+        this.addQuantumParticles();
+        // Initialize holographic display effects
+        this.initHolographicDisplay();
+        // Setup advanced gesture recognition
+        this.setupGestureRecognition();
     }
     
     setupEventListeners() {
@@ -187,8 +216,18 @@ class AdvancedCalculator {
                     return secondValue;
             }
         } catch (error) {
+            this.playSound('error');
+            this.addErrorEffect();
             return 'Error';
         }
+    }
+    
+    addErrorEffect() {
+        const display = this.display;
+        display.style.animation = 'errorGlow 0.5s ease-in-out';
+        setTimeout(() => {
+            display.style.animation = '';
+        }, 500);
     }
     
     evaluateScientificExpression(expression) {
@@ -423,18 +462,28 @@ class AdvancedCalculator {
         }
     }
     
-    // Button animation
+    // Enhanced button animation with multi-sensory feedback
     addButtonAnimation(button) {
         if (button && button.classList.contains('btn')) {
             button.classList.add('pressed');
             setTimeout(() => button.classList.remove('pressed'), 100);
             
-            // Add success animation for equals button
+            // Multi-sensory feedback
+            this.playSound('click');
+            this.addHapticFeedback();
+            this.addQuantumRipple(button);
+            
+            // Special animations for different button types
             if (button.classList.contains('btn-equals')) {
+                this.playSound('equals');
                 setTimeout(() => {
                     button.classList.add('success');
+                    this.addHolographicBurst(button);
                     setTimeout(() => button.classList.remove('success'), 600);
                 }, 50);
+            } else if (button.classList.contains('btn-clear')) {
+                this.playSound('clear');
+                this.addClearEffect();
             }
         }
     }
@@ -442,11 +491,154 @@ class AdvancedCalculator {
     // Enhanced calculation with loading state
     performCalculationWithLoading() {
         this.display.classList.add('calculating');
+        this.addQuantumCalculationEffect();
         
         setTimeout(() => {
             this.calculate();
             this.display.classList.remove('calculating');
         }, 300); // Small delay for visual feedback
+    }
+    
+    // Multi-sensory feedback methods
+    playSound(soundType) {
+        if (!this.audioContext) return;
+        
+        const sound = this.sounds[soundType];
+        const oscillator = this.audioContext.createOscillator();
+        const gainNode = this.audioContext.createGain();
+        
+        oscillator.connect(gainNode);
+        gainNode.connect(this.audioContext.destination);
+        
+        oscillator.frequency.setValueAtTime(sound.frequency, this.audioContext.currentTime);
+        oscillator.type = 'sine';
+        
+        gainNode.gain.setValueAtTime(0, this.audioContext.currentTime);
+        gainNode.gain.linearRampToValueAtTime(0.1, this.audioContext.currentTime + 0.01);
+        gainNode.gain.exponentialRampToValueAtTime(0.001, this.audioContext.currentTime + sound.duration);
+        
+        oscillator.start(this.audioContext.currentTime);
+        oscillator.stop(this.audioContext.currentTime + sound.duration);
+    }
+    
+    addHapticFeedback() {
+        // Simulate haptic feedback using vibration API
+        if ('vibrate' in navigator) {
+            navigator.vibrate(10);
+        }
+    }
+    
+    addQuantumRipple(button) {
+        const ripple = document.createElement('div');
+        ripple.classList.add('quantum-ripple');
+        
+        const rect = button.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+        
+        ripple.style.width = ripple.style.height = size + 'px';
+        ripple.style.left = (rect.width / 2 - size / 2) + 'px';
+        ripple.style.top = (rect.height / 2 - size / 2) + 'px';
+        
+        button.appendChild(ripple);
+        
+        setTimeout(() => {
+            if (ripple.parentNode) {
+                ripple.parentNode.removeChild(ripple);
+            }
+        }, 600);
+    }
+    
+    addHolographicBurst(button) {
+        for (let i = 0; i < 8; i++) {
+            const particle = document.createElement('div');
+            particle.classList.add('holographic-particle');
+            
+            const angle = (i * 45) * Math.PI / 180;
+            const distance = 100;
+            
+            particle.style.setProperty('--angle', angle + 'rad');
+            particle.style.setProperty('--distance', distance + 'px');
+            
+            button.appendChild(particle);
+            
+            setTimeout(() => {
+                if (particle.parentNode) {
+                    particle.parentNode.removeChild(particle);
+                }
+            }, 1000);
+        }
+    }
+    
+    addClearEffect() {
+        const display = this.display;
+        display.style.animation = 'clearPulse 0.3s ease-out';
+        setTimeout(() => {
+            display.style.animation = '';
+        }, 300);
+    }
+    
+    addQuantumCalculationEffect() {
+        const container = document.querySelector('.display-container');
+        container.style.animation = 'quantumCalculation 0.5s ease-in-out';
+        setTimeout(() => {
+            container.style.animation = '';
+        }, 500);
+    }
+    
+    addQuantumParticles() {
+        const calculator = document.querySelector('.calculator');
+        
+        for (let i = 0; i < 20; i++) {
+            const particle = document.createElement('div');
+            particle.classList.add('quantum-bg-particle');
+            
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.top = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 10 + 's';
+            particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+            
+            calculator.appendChild(particle);
+        }
+    }
+    
+    initHolographicDisplay() {
+        const display = this.display;
+        setInterval(() => {
+            if (Math.random() > 0.95) {
+                display.style.animation = 'holographicFlicker 0.1s ease-in-out';
+                setTimeout(() => {
+                    display.style.animation = '';
+                }, 100);
+            }
+        }, 1000);
+    }
+    
+    setupGestureRecognition() {
+        let startY = 0;
+        let startX = 0;
+        
+        document.addEventListener('touchstart', (e) => {
+            startY = e.touches[0].clientY;
+            startX = e.touches[0].clientX;
+        });
+        
+        document.addEventListener('touchend', (e) => {
+            const endY = e.changedTouches[0].clientY;
+            const endX = e.changedTouches[0].clientX;
+            const diffY = startY - endY;
+            const diffX = startX - endX;
+            
+            // Gesture recognition for advanced interactions
+            if (Math.abs(diffY) > 50 && Math.abs(diffX) < 50) {
+                if (diffY > 0) {
+                    // Swipe up - switch to scientific mode
+                    this.switchMode('scientific');
+                } else {
+                    // Swipe down - switch to basic mode
+                    this.switchMode('basic');
+                }
+            }
+        });
     }
 }
 
