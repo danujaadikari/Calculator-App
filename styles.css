@@ -20,6 +20,18 @@
     --neumorphism-dark: rgba(0, 0, 0, 0.1);
     --premium-gradient: linear-gradient(145deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
     
+    /* Holographic & Neon Effects */
+    --neon-cyan: #00ffff;
+    --neon-pink: #ff00ff;
+    --neon-green: #39ff14;
+    --neon-purple: #bf00ff;
+    --neon-blue: #0080ff;
+    --holographic: linear-gradient(45deg, #ff00ff, #00ffff, #ff00ff, #00ffff);
+    --cyber-glow: 0 0 5px currentColor, 0 0 10px currentColor, 0 0 15px currentColor, 0 0 20px currentColor;
+    --matrix-green: #00ff41;
+    --quantum-blue: #4d79ff;
+    --plasma-purple: #9d4edd;
+    
     /* Button colors */
     --btn-number: #ffffff;
     --btn-number-hover: #f8fafc;
@@ -57,6 +69,18 @@
     --neumorphism-light: rgba(255, 255, 255, 0.05);
     --neumorphism-dark: rgba(0, 0, 0, 0.3);
     --premium-gradient: linear-gradient(145deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+    
+    /* Dark Theme Holographic Colors */
+    --neon-cyan: #00ffff;
+    --neon-pink: #ff1493;
+    --neon-green: #39ff14;
+    --neon-purple: #8a2be2;
+    --neon-blue: #1e90ff;
+    --holographic: linear-gradient(45deg, #ff1493, #00ffff, #39ff14, #8a2be2, #1e90ff);
+    --cyber-glow: 0 0 8px currentColor, 0 0 16px currentColor, 0 0 24px currentColor, 0 0 32px currentColor;
+    --matrix-green: #00ff41;
+    --quantum-blue: #4d79ff;
+    --plasma-purple: #9d4edd;
     
     /* Button colors for dark theme */
     --btn-number: rgba(51, 65, 85, 0.8);
@@ -115,14 +139,19 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: 
-        radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
-        radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
-        radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
-    background-size: 100px 100px, 150px 150px, 80px 80px;
+    background: 
+        /* Holographic grid */
+        linear-gradient(90deg, transparent 98%, rgba(0, 255, 255, 0.03) 100%),
+        linear-gradient(0deg, transparent 98%, rgba(255, 0, 255, 0.03) 100%),
+        /* Neon particles */
+        radial-gradient(circle at 20% 80%, rgba(0, 255, 255, 0.1) 1px, transparent 2px),
+        radial-gradient(circle at 80% 20%, rgba(255, 0, 255, 0.1) 1px, transparent 2px),
+        radial-gradient(circle at 60% 60%, rgba(57, 255, 20, 0.08) 1px, transparent 2px),
+        radial-gradient(circle at 30% 30%, rgba(191, 0, 255, 0.06) 1px, transparent 2px);
+    background-size: 50px 50px, 50px 50px, 120px 120px, 180px 180px, 90px 90px, 60px 60px;
     z-index: -1;
-    animation: particleFloat 40s linear infinite;
-    opacity: 0.3;
+    animation: holographicFloat 60s linear infinite, cyberGlow 8s ease-in-out infinite alternate;
+    opacity: 0.4;
 }
 
 @keyframes floatingBg {
@@ -140,11 +169,88 @@ body::before {
     }
 }
 
-@keyframes particleFloat {
-    0% { transform: translateY(0px) translateX(0px); }
-    33% { transform: translateY(-20px) translateX(10px); }
-    66% { transform: translateY(-10px) translateX(-5px); }
-    100% { transform: translateY(0px) translateX(0px); }
+@keyframes holographicFloat {
+    0% { transform: translateY(0px) translateX(0px) rotateZ(0deg); }
+    25% { transform: translateY(-15px) translateX(8px) rotateZ(1deg); }
+    50% { transform: translateY(-30px) translateX(0px) rotateZ(0deg); }
+    75% { transform: translateY(-15px) translateX(-8px) rotateZ(-1deg); }
+    100% { transform: translateY(0px) translateX(0px) rotateZ(0deg); }
+}
+
+@keyframes cyberGlow {
+    0% { 
+        opacity: 0.3;
+        filter: brightness(1) contrast(1) hue-rotate(0deg);
+    }
+    50% { 
+        opacity: 0.6;
+        filter: brightness(1.2) contrast(1.1) hue-rotate(180deg);
+    }
+    100% { 
+        opacity: 0.4;
+        filter: brightness(1) contrast(1) hue-rotate(360deg);
+    }
+}
+
+@keyframes holographicShimmer {
+    0%, 100% { 
+        background-position: -200% 0;
+        opacity: 0;
+    }
+    50% { 
+        background-position: 200% 0;
+        opacity: 1;
+    }
+}
+
+@keyframes neonPulse {
+    0%, 100% { 
+        text-shadow: var(--cyber-glow);
+        filter: brightness(1);
+        box-shadow: 
+            0 10px 30px rgba(0, 0, 0, 0.2),
+            0 0 0 1px rgba(255, 255, 255, 0.1),
+            0 0 20px currentColor;
+    }
+    50% { 
+        text-shadow: var(--cyber-glow), 0 0 40px currentColor;
+        filter: brightness(1.4) saturate(1.2);
+        box-shadow: 
+            0 15px 45px rgba(0, 0, 0, 0.3),
+            0 0 0 1px currentColor,
+            0 0 40px currentColor,
+            0 0 80px currentColor;
+    }
+}
+
+@keyframes quantumFloat {
+    0%, 100% { 
+        transform: translateY(-10px) scale(1.08) rotateX(15deg) rotateZ(2deg);
+    }
+    33% { 
+        transform: translateY(-12px) scale(1.09) rotateX(18deg) rotateZ(1deg);
+    }
+    66% { 
+        transform: translateY(-8px) scale(1.07) rotateX(12deg) rotateZ(3deg);
+    }
+}
+
+@keyframes plasmaEffect {
+    0% { 
+        filter: hue-rotate(0deg) saturate(1);
+    }
+    25% { 
+        filter: hue-rotate(90deg) saturate(1.2);
+    }
+    50% { 
+        filter: hue-rotate(180deg) saturate(1.4);
+    }
+    75% { 
+        filter: hue-rotate(270deg) saturate(1.2);
+    }
+    100% { 
+        filter: hue-rotate(360deg) saturate(1);
+    }
 }
 
 .container {
@@ -163,21 +269,21 @@ body::before {
 }
 
 .title {
-    font-size: 3.2rem;
+    font-size: 3.6rem;
     font-weight: 900;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 30%, #f093fb 70%, #ff9a9e 100%);
-    background-size: 300% 300%;
+    background: var(--holographic);
+    background-size: 400% 400%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     display: flex;
     align-items: center;
-    gap: 20px;
-    transition: all 0.4s ease;
-    text-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    animation: gradientShift 8s ease-in-out infinite;
+    gap: 25px;
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    animation: gradientShift 6s ease-in-out infinite, quantumTitle 10s ease-in-out infinite;
     position: relative;
-    letter-spacing: -0.03em;
+    letter-spacing: -0.04em;
+    filter: drop-shadow(0 0 15px rgba(0, 255, 255, 0.4)) drop-shadow(0 0 30px rgba(255, 0, 255, 0.2));
 }
 
 .title::after {
@@ -299,66 +405,121 @@ body::before {
     margin-bottom: 40px;
 }
 
-/* Calculator Styles - Premium 3D Neumorphism */
+/* Calculator Styles - Holographic 3D Revolution */
 .calculator {
-    background: linear-gradient(145deg, var(--bg-secondary), var(--bg-tertiary));
-    -webkit-backdrop-filter: blur(25px);
-    backdrop-filter: blur(25px);
-    border-radius: 30px;
-    padding: 40px;
+    background: 
+        linear-gradient(145deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02)),
+        linear-gradient(45deg, rgba(0, 255, 255, 0.03), rgba(255, 0, 255, 0.03));
+    -webkit-backdrop-filter: blur(30px);
+    backdrop-filter: blur(30px);
+    border-radius: 35px;
+    padding: 45px;
     box-shadow: 
-        var(--shadow-heavy),
-        inset 0 1px 0 var(--neumorphism-light),
-        inset 0 -1px 0 var(--neumorphism-dark),
-        0 0 0 1px var(--glass-border);
-    border: none;
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        0 40px 80px rgba(0, 0, 0, 0.3),
+        0 0 0 1px rgba(255, 255, 255, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2),
+        0 0 50px rgba(0, 255, 255, 0.1),
+        0 0 100px rgba(255, 0, 255, 0.05);
+    border: 1px solid;
+    border-image: var(--holographic) 1;
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
     position: relative;
     overflow: hidden;
     transform-style: preserve-3d;
+    perspective: 1000px;
+    animation: floatingCalculator 20s ease-in-out infinite;
 }
 
 .calculator::before {
     content: '';
     position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: 
+        conic-gradient(from 0deg, transparent, rgba(0, 255, 255, 0.1), transparent, rgba(255, 0, 255, 0.1), transparent);
+    animation: holographicShimmer 6s linear infinite;
+    z-index: 1;
+    pointer-events: none;
+    border-radius: inherit;
+    opacity: 0;
+}
+
+.calculator::after {
+    content: '';
+    position: absolute;
     top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-    transition: left 0.8s ease;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 30% 30%, rgba(0, 255, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 70% 70%, rgba(255, 0, 255, 0.1) 0%, transparent 50%);
+    border-radius: inherit;
+    z-index: 1;
+    pointer-events: none;
+    animation: cyberGlow 8s ease-in-out infinite alternate;
 }
 
 .calculator:hover {
     box-shadow: 
-        0 25px 50px var(--shadow-heavy),
-        inset 0 1px 0 var(--glass-border);
-    transform: translateY(-5px);
+        0 60px 120px rgba(0, 0, 0, 0.4),
+        0 0 0 1px rgba(255, 255, 255, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3),
+        0 0 80px rgba(0, 255, 255, 0.2),
+        0 0 160px rgba(255, 0, 255, 0.1),
+        0 0 200px rgba(57, 255, 20, 0.05);
+    transform: translateY(-15px) rotateX(5deg) rotateY(2deg) scale(1.02);
+    border-image: linear-gradient(45deg, #00ffff, #ff00ff, #39ff14, #bf00ff) 1;
 }
 
 .calculator:hover::before {
-    left: 100%;
+    opacity: 1;
+    animation-duration: 3s;
 }
 
-/* Display Styles - Premium 3D */
+@keyframes floatingCalculator {
+    0%, 100% { 
+        transform: translateY(0px) rotateX(0deg) rotateY(0deg);
+    }
+    25% { 
+        transform: translateY(-5px) rotateX(1deg) rotateY(0.5deg);
+    }
+    50% { 
+        transform: translateY(-10px) rotateX(0deg) rotateY(-0.5deg);
+    }
+    75% { 
+        transform: translateY(-5px) rotateX(-1deg) rotateY(0deg);
+    }
+}
+
+/* Display Styles - Holographic Quantum Display */
 .display-container {
-    background: linear-gradient(145deg, var(--bg-tertiary), var(--bg-secondary));
-    -webkit-backdrop-filter: blur(20px);
-    backdrop-filter: blur(20px);
-    border-radius: 25px;
-    padding: 35px;
-    margin-bottom: 35px;
-    min-height: 140px;
+    background: 
+        linear-gradient(145deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.1)),
+        radial-gradient(circle at center, rgba(0, 255, 255, 0.05), transparent 70%),
+        linear-gradient(90deg, transparent 49%, rgba(0, 255, 255, 0.02) 50%, transparent 51%);
+    -webkit-backdrop-filter: blur(25px);
+    backdrop-filter: blur(25px);
+    border-radius: 30px;
+    padding: 40px;
+    margin-bottom: 40px;
+    min-height: 160px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     box-shadow: 
-        inset 8px 8px 16px var(--neumorphism-dark),
-        inset -8px -8px 16px var(--neumorphism-light),
-        0 4px 20px rgba(0, 0, 0, 0.1);
+        inset 0 1px 0 rgba(0, 255, 255, 0.3),
+        inset 0 -1px 0 rgba(255, 0, 255, 0.2),
+        0 10px 50px rgba(0, 0, 0, 0.3),
+        0 0 0 1px rgba(0, 255, 255, 0.2),
+        0 0 30px rgba(0, 255, 255, 0.1);
     position: relative;
     overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 2px solid;
+    border-image: linear-gradient(45deg, var(--neon-cyan), var(--neon-pink), var(--neon-cyan)) 1;
+    animation: displayGlow 6s ease-in-out infinite alternate;
 }
 
 .display-container::before {
@@ -381,22 +542,24 @@ body::before {
 }
 
 .display-main {
-    font-size: 3.2rem;
-    font-weight: 800;
+    font-size: 3.8rem;
+    font-weight: 900;
     text-align: right;
     word-break: break-all;
-    min-height: 70px;
+    min-height: 80px;
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    background: var(--holographic);
+    background-size: 400% 400%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     position: relative;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.03em;
+    animation: gradientShift 4s ease-in-out infinite, holographicGlow 3s ease-in-out infinite alternate;
+    filter: drop-shadow(0 0 10px rgba(0, 255, 255, 0.5)) drop-shadow(0 0 20px rgba(255, 0, 255, 0.3));
 }
 
 .display-main::before {
@@ -459,22 +622,25 @@ body::before {
     grid-template-columns: repeat(5, 1fr);
 }
 
-/* Button Styles - Premium Neumorphism */
+/* Button Styles - Quantum Holographic Revolution */
 .btn {
-    padding: 22px;
+    padding: 24px;
     border: none;
-    border-radius: 20px;
-    font-size: 1.2rem;
-    font-weight: 700;
+    border-radius: 25px;
+    font-size: 1.3rem;
+    font-weight: 800;
     cursor: pointer;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    background: linear-gradient(145deg, var(--bg-secondary), var(--bg-tertiary));
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    background: 
+        linear-gradient(145deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01)),
+        radial-gradient(circle at center, rgba(0, 255, 255, 0.05), transparent 70%);
     color: var(--text-primary);
     box-shadow: 
-        8px 8px 16px var(--neumorphism-dark),
-        -8px -8px 16px var(--neumorphism-light),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    min-height: 70px;
+        0 10px 30px rgba(0, 0, 0, 0.2),
+        0 0 0 1px rgba(255, 255, 255, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2),
+        0 0 20px rgba(0, 255, 255, 0.1);
+    min-height: 75px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -485,6 +651,10 @@ body::before {
     -webkit-tap-highlight-color: transparent;
     transform-style: preserve-3d;
     will-change: transform;
+    perspective: 500px;
+    border: 1px solid rgba(0, 255, 255, 0.2);
+    -webkit-backdrop-filter: blur(15px);
+    backdrop-filter: blur(15px);
 }
 
 .btn::before {
@@ -517,13 +687,19 @@ body::before {
 }
 
 .btn:hover {
-    transform: translateY(-5px) scale(1.05) rotateX(10deg);
+    transform: translateY(-10px) scale(1.08) rotateX(15deg) rotateZ(2deg);
     box-shadow: 
-        12px 12px 24px var(--neumorphism-dark),
-        -12px -12px 24px var(--neumorphism-light),
-        0 25px 50px rgba(0, 0, 0, 0.15),
-        inset 0 1px 0 rgba(255, 255, 255, 0.2);
-    z-index: 10;
+        0 20px 60px rgba(0, 0, 0, 0.3),
+        0 0 0 1px rgba(255, 255, 255, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4),
+        0 0 40px var(--neon-cyan),
+        0 0 80px rgba(0, 255, 255, 0.3),
+        0 0 120px rgba(255, 0, 255, 0.2);
+    z-index: 100;
+    border: 1px solid var(--neon-cyan);
+    color: var(--neon-cyan);
+    text-shadow: 0 0 10px currentColor;
+    animation: quantumFloat 2s ease-in-out infinite;
 }
 
 .btn:hover::before {
@@ -561,58 +737,92 @@ body::before {
 }
 
 .btn-operator {
-    background: linear-gradient(145deg, #667eea, #764ba2);
-    color: white;
-    font-size: 1.4rem;
-    font-weight: 700;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    background: 
+        linear-gradient(145deg, rgba(0, 128, 255, 0.2), rgba(77, 121, 255, 0.1)),
+        radial-gradient(circle, var(--quantum-blue), transparent 70%);
+    color: var(--neon-blue);
+    font-size: 1.5rem;
+    font-weight: 900;
+    text-shadow: 0 0 10px currentColor, 0 0 20px currentColor;
     position: relative;
+    border: 1px solid var(--neon-blue);
+    animation: neonPulse 3s ease-in-out infinite;
 }
 
 .btn-operator::after {
-    background: linear-gradient(145deg, #764ba2, #667eea);
+    background: 
+        conic-gradient(from 0deg, var(--neon-blue), var(--quantum-blue), var(--neon-blue));
+    opacity: 0.1;
 }
 
 .btn-operator:hover {
-    background: linear-gradient(145deg, #764ba2, #667eea);
+    background: 
+        linear-gradient(145deg, rgba(30, 144, 255, 0.3), rgba(77, 121, 255, 0.2)),
+        radial-gradient(circle, var(--neon-blue), transparent 50%);
     box-shadow: 
-        12px 12px 24px rgba(59, 130, 246, 0.3),
-        -12px -12px 24px rgba(255, 255, 255, 0.1),
-        0 25px 50px rgba(59, 130, 246, 0.4);
+        0 20px 60px rgba(30, 144, 255, 0.4),
+        0 0 0 1px var(--neon-blue),
+        0 0 40px var(--neon-blue),
+        0 0 80px rgba(30, 144, 255, 0.5),
+        inset 0 0 20px rgba(30, 144, 255, 0.2);
+    color: #ffffff;
+    text-shadow: 0 0 15px var(--neon-blue), 0 0 30px var(--neon-blue);
 }
 
 .btn-operator:hover::after {
-    opacity: 0.3;
+    opacity: 0.4;
+    animation: holographicShimmer 2s linear infinite;
 }
 
 .btn-equals {
-    background: linear-gradient(145deg, #10b981, #059669);
-    color: white;
-    font-size: 1.5rem;
-    font-weight: 800;
+    background: 
+        linear-gradient(145deg, rgba(57, 255, 20, 0.3), rgba(16, 185, 129, 0.2)),
+        radial-gradient(circle, var(--neon-green), transparent 60%),
+        conic-gradient(from 0deg, var(--neon-green), var(--matrix-green), var(--neon-green));
+    color: var(--neon-green);
+    font-size: 1.7rem;
+    font-weight: 900;
     position: relative;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    text-shadow: 0 0 15px currentColor, 0 0 30px currentColor, 0 0 45px currentColor;
     box-shadow: 
-        8px 8px 16px rgba(16, 185, 129, 0.3),
-        -8px -8px 16px rgba(255, 255, 255, 0.1),
-        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        0 15px 45px rgba(57, 255, 20, 0.4),
+        0 0 0 1px var(--neon-green),
+        0 0 30px var(--neon-green),
+        inset 0 0 20px rgba(57, 255, 20, 0.2);
+    border: 2px solid var(--neon-green);
+    animation: neonPulse 2s ease-in-out infinite, plasmaEffect 4s linear infinite;
 }
 
 .btn-equals::after {
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+    background: 
+        conic-gradient(from 0deg, transparent, var(--neon-green), transparent, var(--matrix-green), transparent);
+    opacity: 0.3;
 }
 
 .btn-equals:hover::after {
-    opacity: 0.4;
+    opacity: 0.8;
+    animation: holographicShimmer 1s linear infinite;
 }
 
 .btn-equals:hover {
-    background: linear-gradient(145deg, #059669, #10b981);
+    background: 
+        linear-gradient(145deg, rgba(57, 255, 20, 0.5), rgba(16, 185, 129, 0.4)),
+        radial-gradient(circle, var(--matrix-green), transparent 40%),
+        conic-gradient(from 90deg, var(--neon-green), var(--matrix-green), var(--neon-green));
     box-shadow: 
-        15px 15px 30px rgba(16, 185, 129, 0.4),
-        -15px -15px 30px rgba(255, 255, 255, 0.1),
-        0 30px 60px rgba(16, 185, 129, 0.3);
-    transform: translateY(-8px) scale(1.08) rotateX(15deg);
+        0 25px 75px rgba(57, 255, 20, 0.6),
+        0 0 0 2px var(--neon-green),
+        0 0 50px var(--neon-green),
+        0 0 100px rgba(57, 255, 20, 0.4),
+        0 0 150px rgba(0, 255, 65, 0.2),
+        inset 0 0 30px rgba(57, 255, 20, 0.3);
+    transform: translateY(-15px) scale(1.12) rotateX(20deg) rotateZ(5deg);
+    color: #ffffff;
+    text-shadow: 
+        0 0 20px var(--neon-green), 
+        0 0 40px var(--neon-green), 
+        0 0 60px var(--neon-green);
+    animation: plasmaEffect 1s linear infinite, quantumFloat 1.5s ease-in-out infinite;
 }
 
 .btn-clear {
@@ -629,28 +839,43 @@ body::before {
 }
 
 .btn-scientific {
-    background: linear-gradient(145deg, #8b5cf6, #7c3aed);
-    color: white;
-    font-size: 1rem;
-    font-weight: 700;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    background: 
+        linear-gradient(145deg, rgba(191, 0, 255, 0.2), rgba(139, 92, 246, 0.1)),
+        radial-gradient(circle, var(--neon-purple), transparent 60%);
+    color: var(--neon-purple);
+    font-size: 1.1rem;
+    font-weight: 800;
+    text-shadow: 0 0 8px currentColor, 0 0 16px currentColor;
     position: relative;
+    border: 1px solid var(--neon-purple);
+    animation: neonPulse 4s ease-in-out infinite;
 }
 
 .btn-scientific::after {
-    background: linear-gradient(145deg, #a855f7, #8b5cf6);
+    background: 
+        conic-gradient(from 45deg, var(--neon-purple), var(--plasma-purple), var(--neon-purple));
+    opacity: 0.2;
 }
 
 .btn-scientific:hover {
-    background: linear-gradient(145deg, #7c3aed, #8b5cf6);
+    background: 
+        linear-gradient(145deg, rgba(191, 0, 255, 0.4), rgba(139, 92, 246, 0.3)),
+        radial-gradient(circle, var(--plasma-purple), transparent 40%);
     box-shadow: 
-        12px 12px 24px rgba(139, 92, 246, 0.3),
-        -12px -12px 24px rgba(255, 255, 255, 0.1),
-        0 25px 50px rgba(139, 92, 246, 0.4);
+        0 20px 60px rgba(191, 0, 255, 0.5),
+        0 0 0 1px var(--neon-purple),
+        0 0 35px var(--neon-purple),
+        0 0 70px rgba(191, 0, 255, 0.4),
+        inset 0 0 25px rgba(191, 0, 255, 0.2);
+    color: #ffffff;
+    text-shadow: 
+        0 0 12px var(--neon-purple), 
+        0 0 24px var(--neon-purple);
 }
 
 .btn-scientific:hover::after {
-    opacity: 0.3;
+    opacity: 0.5;
+    animation: holographicShimmer 1.5s linear infinite;
 }
 
 .zero {
@@ -1197,6 +1422,43 @@ body::before {
     50% { transform: scale(1.2); opacity: 0.6; }
 }
 
+@keyframes displayGlow {
+    0% { 
+        box-shadow: 
+            inset 0 1px 0 rgba(0, 255, 255, 0.3),
+            inset 0 -1px 0 rgba(255, 0, 255, 0.2),
+            0 10px 50px rgba(0, 0, 0, 0.3),
+            0 0 30px rgba(0, 255, 255, 0.1);
+    }
+    100% { 
+        box-shadow: 
+            inset 0 1px 0 rgba(255, 0, 255, 0.4),
+            inset 0 -1px 0 rgba(0, 255, 255, 0.3),
+            0 15px 75px rgba(0, 0, 0, 0.4),
+            0 0 50px rgba(255, 0, 255, 0.2);
+    }
+}
+
+@keyframes holographicGlow {
+    0% { 
+        filter: drop-shadow(0 0 10px rgba(0, 255, 255, 0.5)) drop-shadow(0 0 20px rgba(255, 0, 255, 0.3));
+    }
+    100% { 
+        filter: drop-shadow(0 0 20px rgba(255, 0, 255, 0.6)) drop-shadow(0 0 40px rgba(0, 255, 255, 0.4));
+    }
+}
+
+@keyframes quantumTitle {
+    0%, 100% { 
+        transform: translateY(0px) scale(1);
+        filter: drop-shadow(0 0 15px rgba(0, 255, 255, 0.4)) drop-shadow(0 0 30px rgba(255, 0, 255, 0.2));
+    }
+    50% { 
+        transform: translateY(-3px) scale(1.02);
+        filter: drop-shadow(0 0 25px rgba(255, 0, 255, 0.5)) drop-shadow(0 0 50px rgba(0, 255, 255, 0.3));
+    }
+}
+
 /* Developer Information Footer */
 .developer-info {
     margin-top: 50px;
@@ -1260,4 +1522,250 @@ body::before {
     [data-theme="dark"] {
         --border-color: #ffffff;
     }
+}
+
+/* Multi-Sensory Experience Animations */
+
+/* Quantum ripple effect */
+.quantum-ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle, 
+        var(--neon-cyan) 0%, 
+        var(--neon-purple) 50%, 
+        transparent 70%);
+    transform: scale(0);
+    animation: quantumRipple 0.6s ease-out;
+    pointer-events: none;
+    z-index: 10;
+}
+
+@keyframes quantumRipple {
+    0% {
+        transform: scale(0);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+
+/* Holographic particles */
+.holographic-particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: linear-gradient(45deg, 
+        var(--neon-cyan), 
+        var(--neon-purple), 
+        var(--neon-pink));
+    border-radius: 50%;
+    animation: holographicBurst 1s ease-out forwards;
+    pointer-events: none;
+    z-index: 10;
+}
+
+@keyframes holographicBurst {
+    0% {
+        transform: scale(1) translate(0, 0);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(0) translate(
+            calc(cos(var(--angle)) * var(--distance)), 
+            calc(sin(var(--angle)) * var(--distance))
+        );
+        opacity: 0;
+    }
+}
+
+/* Background quantum particles */
+.quantum-bg-particle {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: var(--neon-cyan);
+    border-radius: 50%;
+    animation: quantumFloat 15s infinite linear;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.3;
+}
+
+@keyframes quantumFloat {
+    0% {
+        transform: translateY(100vh) translateX(0);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.3;
+    }
+    90% {
+        opacity: 0.3;
+    }
+    100% {
+        transform: translateY(-10px) translateX(50px);
+        opacity: 0;
+    }
+}
+
+/* Multi-sensory feedback animations */
+@keyframes clearPulse {
+    0% { 
+        background: var(--display-bg);
+        color: var(--text-color);
+    }
+    50% { 
+        background: var(--neon-purple);
+        color: white;
+        transform: scale(1.02);
+    }
+    100% { 
+        background: var(--display-bg);
+        color: var(--text-color);
+    }
+}
+
+@keyframes quantumCalculation {
+    0% { 
+        transform: rotateY(0deg);
+        filter: hue-rotate(0deg);
+    }
+    25% { 
+        transform: rotateY(5deg);
+        filter: hue-rotate(90deg);
+    }
+    50% { 
+        transform: rotateY(0deg);
+        filter: hue-rotate(180deg);
+    }
+    75% { 
+        transform: rotateY(-5deg);
+        filter: hue-rotate(270deg);
+    }
+    100% { 
+        transform: rotateY(0deg);
+        filter: hue-rotate(360deg);
+    }
+}
+
+@keyframes holographicFlicker {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.8; }
+}
+
+@keyframes errorGlow {
+    0% { 
+        background: var(--display-bg);
+        box-shadow: var(--neon-glow);
+    }
+    50% { 
+        background: rgba(255, 0, 100, 0.2);
+        box-shadow: 0 0 30px rgba(255, 0, 100, 0.5);
+        color: #ff0064;
+    }
+    100% { 
+        background: var(--display-bg);
+        box-shadow: var(--neon-glow);
+    }
+}
+
+@keyframes holographicShimmer {
+    0%, 100% {
+        filter: hue-rotate(0deg) brightness(1);
+    }
+    25% {
+        filter: hue-rotate(90deg) brightness(1.1);
+    }
+    50% {
+        filter: hue-rotate(180deg) brightness(1.2);
+    }
+    75% {
+        filter: hue-rotate(270deg) brightness(1.1);
+    }
+}
+
+/* Enhanced button hover with shimmer effect */
+.btn:hover {
+    animation: holographicShimmer 2s ease-in-out infinite;
+}
+
+/* Holographic scanning effect for calculator */
+.calculator::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, 
+        transparent 30%, 
+        rgba(0, 255, 255, 0.03) 50%, 
+        transparent 70%);
+    animation: holographicScan 8s linear infinite;
+    pointer-events: none;
+    z-index: 1;
+}
+
+@keyframes holographicScan {
+    0% {
+        transform: translateX(-100%) translateY(-100%) rotate(45deg);
+    }
+    100% {
+        transform: translateX(100%) translateY(100%) rotate(45deg);
+    }
+}
+
+/* Mobile gesture recognition enhancements */
+@media (max-width: 768px) {
+    .calculator {
+        touch-action: pan-y;
+    }
+    
+    .btn {
+        touch-action: manipulation;
+    }
+    
+    .calculator::after {
+        content: 'Swipe up/down to switch modes';
+        position: absolute;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 10px;
+        color: var(--neon-cyan);
+        opacity: 0.5;
+        animation: fadeInOut 3s ease-in-out infinite;
+    }
+}
+
+@keyframes fadeInOut {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.7; }
+}
+
+/* Accessibility enhancements */
+@media (prefers-reduced-motion: reduce) {
+    .quantum-ripple,
+    .holographic-particle,
+    .quantum-bg-particle {
+        display: none !important;
+    }
+    
+    .calculator::before {
+        display: none !important;
+    }
+}
+
+/* Focus indicators for keyboard navigation */
+.btn:focus-visible {
+    outline: 2px solid var(--neon-cyan);
+    outline-offset: 2px;
+    animation: focusGlow 1s ease-in-out infinite alternate;
+}
+
+@keyframes focusGlow {
+    0% { outline-color: var(--neon-cyan); }
+    100% { outline-color: var(--neon-purple); }
 }
