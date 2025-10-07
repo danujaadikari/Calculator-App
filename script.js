@@ -26,6 +26,26 @@ class AdvancedCalculator {
             error: { frequency: 200, duration: 0.3 }
         };
         
+        // AI-powered features
+        this.userPatterns = {
+            buttonSequences: [],
+            timingPatterns: [],
+            preferredOperations: {},
+            sessionData: [],
+            predictionScore: 0
+        };
+        
+        this.aiFeatures = {
+            predictiveMode: true,
+            learningEnabled: true,
+            adaptiveUI: true,
+            smartSuggestions: true
+        };
+        
+        this.sessionStartTime = Date.now();
+        this.lastInteractionTime = Date.now();
+        this.interactionCount = 0;
+        
         // Initialize calculator
         this.init();
         this.initAudio();
@@ -34,9 +54,11 @@ class AdvancedCalculator {
     init() {
         this.loadHistory();
         this.loadTheme();
+        this.loadUserPatterns();
         this.setupEventListeners();
         this.updateDisplay();
         this.initQuantumEffects();
+        this.initAIFeatures();
     }
     
     initAudio() {
@@ -55,6 +77,19 @@ class AdvancedCalculator {
         this.initHolographicDisplay();
         // Setup advanced gesture recognition
         this.setupGestureRecognition();
+    }
+    
+    initAIFeatures() {
+        // Start predictive animation system
+        this.initPredictiveAnimations();
+        // Initialize intelligent button highlighting
+        this.initIntelligentHighlighting();
+        // Setup adaptive UI behaviors
+        this.initAdaptiveUI();
+        // Start learning algorithms
+        this.startLearningAlgorithms();
+        // Initialize smart suggestions
+        this.initSmartSuggestions();
     }
     
     setupEventListeners() {
@@ -375,6 +410,8 @@ class AdvancedCalculator {
     
     saveHistory() {
         localStorage.setItem('calculatorHistory', JSON.stringify(this.history));
+        // Also save session data for AI learning
+        this.saveSessionData();
     }
     
     loadHistory() {
@@ -383,6 +420,32 @@ class AdvancedCalculator {
             this.history = JSON.parse(saved);
             this.updateHistoryDisplay();
         }
+    }
+    
+    saveSessionData() {
+        // Save current session data for AI analysis
+        const sessionData = {
+            startTime: this.sessionStartTime,
+            duration: Date.now() - this.sessionStartTime,
+            interactionCount: this.interactionCount,
+            calculations: this.history.length,
+            averageTimeBetweenInteractions: this.calculateAverageInteractionTime(),
+            timestamp: Date.now()
+        };
+        
+        this.userPatterns.sessionData.push(sessionData);
+        
+        // Limit session data
+        if (this.userPatterns.sessionData.length > 20) {
+            this.userPatterns.sessionData.shift();
+        }
+    }
+    
+    calculateAverageInteractionTime() {
+        if (this.userPatterns.timingPatterns.length === 0) return 0;
+        
+        const sum = this.userPatterns.timingPatterns.reduce((a, b) => a + b, 0);
+        return sum / this.userPatterns.timingPatterns.length;
     }
     
     // Theme management
@@ -462,16 +525,25 @@ class AdvancedCalculator {
         }
     }
     
-    // Enhanced button animation with multi-sensory feedback
+    // Enhanced button animation with multi-sensory feedback and AI learning
     addButtonAnimation(button) {
         if (button && button.classList.contains('btn')) {
+            // AI learning - record button interaction
+            this.recordInteraction(button);
+            
+            // Adaptive animation based on user patterns
+            const animationIntensity = this.getAdaptiveAnimationIntensity(button);
+            
             button.classList.add('pressed');
             setTimeout(() => button.classList.remove('pressed'), 100);
             
-            // Multi-sensory feedback
+            // Multi-sensory feedback with AI adaptation
             this.playSound('click');
             this.addHapticFeedback();
             this.addQuantumRipple(button);
+            
+            // Predictive glow for likely next buttons
+            this.updatePredictiveGlow(button);
             
             // Special animations for different button types
             if (button.classList.contains('btn-equals')) {
@@ -479,12 +551,17 @@ class AdvancedCalculator {
                 setTimeout(() => {
                     button.classList.add('success');
                     this.addHolographicBurst(button);
+                    this.addAICalculationEffect();
                     setTimeout(() => button.classList.remove('success'), 600);
                 }, 50);
             } else if (button.classList.contains('btn-clear')) {
                 this.playSound('clear');
                 this.addClearEffect();
+                this.resetPredictiveState();
             }
+            
+            // Update AI predictions
+            this.updateAIPredictions(button);
         }
     }
     
@@ -616,29 +693,478 @@ class AdvancedCalculator {
     setupGestureRecognition() {
         let startY = 0;
         let startX = 0;
+        let startTime = 0;
         
         document.addEventListener('touchstart', (e) => {
             startY = e.touches[0].clientY;
             startX = e.touches[0].clientX;
+            startTime = Date.now();
         });
         
         document.addEventListener('touchend', (e) => {
             const endY = e.changedTouches[0].clientY;
             const endX = e.changedTouches[0].clientX;
+            const endTime = Date.now();
             const diffY = startY - endY;
             const diffX = startX - endX;
+            const duration = endTime - startTime;
             
-            // Gesture recognition for advanced interactions
+            // Enhanced gesture recognition with AI learning
+            this.recordGesturePattern(diffX, diffY, duration);
+            
+            // Traditional gestures
             if (Math.abs(diffY) > 50 && Math.abs(diffX) < 50) {
                 if (diffY > 0) {
-                    // Swipe up - switch to scientific mode
                     this.switchMode('scientific');
+                    this.addAIModeTransition('up');
                 } else {
-                    // Swipe down - switch to basic mode
                     this.switchMode('basic');
+                    this.addAIModeTransition('down');
                 }
             }
+            
+            // AI-powered gesture recognition
+            this.processAdvancedGestures(diffX, diffY, duration);
         });
+    }
+    
+    // AI-Powered Methods
+    initPredictiveAnimations() {
+        // Initialize predictive button highlighting system
+        setInterval(() => {
+            if (this.aiFeatures.predictiveMode) {
+                this.updatePredictiveHighlights();
+            }
+        }, 500);
+    }
+    
+    initIntelligentHighlighting() {
+        // Highlight frequently used buttons with subtle glow
+        this.updateFrequentButtonStyles();
+    }
+    
+    initAdaptiveUI() {
+        // Adapt UI based on user behavior patterns
+        if (this.userPatterns.preferredOperations) {
+            this.adaptUIBasedOnUsage();
+        }
+    }
+    
+    startLearningAlgorithms() {
+        // Background learning from user interactions
+        setInterval(() => {
+            this.analyzeUserPatterns();
+            this.updateAIPredictions();
+        }, 2000);
+    }
+    
+    initSmartSuggestions() {
+        // Initialize suggestion system
+        this.createSuggestionPanel();
+    }
+    
+    recordInteraction(button) {
+        const currentTime = Date.now();
+        const timeSinceLastInteraction = currentTime - this.lastInteractionTime;
+        
+        // Record button sequence
+        const buttonData = {
+            type: this.getButtonType(button),
+            value: button.textContent,
+            timestamp: currentTime,
+            timingInterval: timeSinceLastInteraction,
+            sessionPosition: this.interactionCount
+        };
+        
+        this.userPatterns.buttonSequences.push(buttonData);
+        this.userPatterns.timingPatterns.push(timeSinceLastInteraction);
+        
+        // Update preferred operations
+        const buttonType = this.getButtonType(button);
+        this.userPatterns.preferredOperations[buttonType] = 
+            (this.userPatterns.preferredOperations[buttonType] || 0) + 1;
+        
+        this.lastInteractionTime = currentTime;
+        this.interactionCount++;
+        
+        // Limit data to prevent memory issues
+        if (this.userPatterns.buttonSequences.length > 100) {
+            this.userPatterns.buttonSequences.shift();
+        }
+    }
+    
+    getButtonType(button) {
+        if (button.classList.contains('btn-number')) return 'number';
+        if (button.classList.contains('btn-operator')) return 'operator';
+        if (button.classList.contains('btn-equals')) return 'equals';
+        if (button.classList.contains('btn-clear')) return 'clear';
+        if (button.classList.contains('btn-scientific')) return 'scientific';
+        return 'other';
+    }
+    
+    getAdaptiveAnimationIntensity(button) {
+        const buttonType = this.getButtonType(button);
+        const usage = this.userPatterns.preferredOperations[buttonType] || 0;
+        const maxUsage = Math.max(...Object.values(this.userPatterns.preferredOperations));
+        
+        // Scale animation intensity based on usage (0.5 to 1.5)
+        return 0.5 + (usage / maxUsage);
+    }
+    
+    updatePredictiveGlow(currentButton) {
+        // Clear previous predictions
+        document.querySelectorAll('.btn').forEach(btn => {
+            btn.classList.remove('ai-predicted', 'ai-likely', 'ai-suggested');
+        });
+        
+        // Get predictions based on current context
+        const predictions = this.getPredictedNextButtons(currentButton);
+        
+        predictions.forEach((prediction, index) => {
+            const button = this.findButtonByValue(prediction.value);
+            if (button) {
+                if (index === 0) button.classList.add('ai-predicted');
+                else if (index < 3) button.classList.add('ai-likely');
+                else button.classList.add('ai-suggested');
+            }
+        });
+    }
+    
+    getPredictedNextButtons(currentButton) {
+        const currentType = this.getButtonType(currentButton);
+        const currentValue = currentButton.textContent;
+        const predictions = [];
+        
+        // Simple pattern recognition
+        const recentSequences = this.userPatterns.buttonSequences.slice(-10);
+        const patterns = {};
+        
+        // Analyze sequences to find common patterns
+        for (let i = 0; i < recentSequences.length - 1; i++) {
+            const current = recentSequences[i].value;
+            const next = recentSequences[i + 1].value;
+            const key = `${current}->${next}`;
+            patterns[key] = (patterns[key] || 0) + 1;
+        }
+        
+        // Find most likely next buttons
+        Object.entries(patterns)
+            .filter(([pattern]) => pattern.startsWith(currentValue + '->'))
+            .sort(([,a], [,b]) => b - a)
+            .slice(0, 5)
+            .forEach(([pattern, count]) => {
+                const nextValue = pattern.split('->')[1];
+                predictions.push({ value: nextValue, confidence: count });
+            });
+        
+        return predictions;
+    }
+    
+    findButtonByValue(value) {
+        return Array.from(document.querySelectorAll('.btn'))
+            .find(btn => btn.textContent.trim() === value);
+    }
+    
+    updatePredictiveHighlights() {
+        // Highlight buttons based on current context and patterns
+        const currentDisplay = this.displayValue;
+        const context = this.getCalculationContext();
+        
+        // Update suggestions based on context
+        this.updateContextualSuggestions(context);
+    }
+    
+    getCalculationContext() {
+        return {
+            displayValue: this.displayValue,
+            hasOperator: !!this.operator,
+            hasPreviousValue: !!this.previousValue,
+            waitingForOperand: this.waitingForOperand,
+            currentMode: this.currentMode
+        };
+    }
+    
+    updateContextualSuggestions(context) {
+        const suggestions = [];
+        
+        // Context-based suggestions
+        if (context.displayValue !== '0' && !context.hasOperator) {
+            suggestions.push({ type: 'operator', message: 'Add an operator (+, -, ×, ÷)' });
+        }
+        
+        if (context.hasOperator && context.waitingForOperand) {
+            suggestions.push({ type: 'number', message: 'Enter a number to complete the operation' });
+        }
+        
+        if (context.hasPreviousValue && context.displayValue !== '0') {
+            suggestions.push({ type: 'equals', message: 'Press = to calculate result' });
+        }
+        
+        this.displaySmartSuggestions(suggestions);
+    }
+    
+    displaySmartSuggestions(suggestions) {
+        // Update suggestion panel (if visible)
+        const suggestionPanel = document.getElementById('aiSuggestions');
+        if (suggestionPanel && suggestions.length > 0) {
+            suggestionPanel.innerHTML = suggestions
+                .map(s => `<div class="ai-suggestion ${s.type}">${s.message}</div>`)
+                .join('');
+            suggestionPanel.style.opacity = '1';
+        }
+    }
+    
+    createSuggestionPanel() {
+        // Create AI suggestions panel
+        const panel = document.createElement('div');
+        panel.id = 'aiSuggestions';
+        panel.className = 'ai-suggestions-panel';
+        panel.innerHTML = '<div class="ai-header">🤖 AI Suggestions</div>';
+        
+        const calculator = document.querySelector('.calculator');
+        calculator.appendChild(panel);
+    }
+    
+    recordGesturePattern(diffX, diffY, duration) {
+        // Record gesture for learning
+        const gesture = {
+            deltaX: diffX,
+            deltaY: diffY,
+            duration: duration,
+            timestamp: Date.now()
+        };
+        
+        // Store gesture pattern
+        if (!this.userPatterns.gesturePatterns) {
+            this.userPatterns.gesturePatterns = [];
+        }
+        
+        this.userPatterns.gesturePatterns.push(gesture);
+        
+        // Limit stored gestures
+        if (this.userPatterns.gesturePatterns.length > 50) {
+            this.userPatterns.gesturePatterns.shift();
+        }
+    }
+    
+    processAdvancedGestures(diffX, diffY, duration) {
+        // AI-powered gesture recognition
+        const velocity = Math.sqrt(diffX * diffX + diffY * diffY) / duration;
+        const angle = Math.atan2(diffY, diffX);
+        
+        // Custom gesture patterns
+        if (velocity > 2 && duration < 200) {
+            // Fast gesture - quick action
+            if (Math.abs(diffX) > Math.abs(diffY)) {
+                // Horizontal swipe
+                if (diffX > 0) {
+                    this.addAIGestureEffect('swipe-left');
+                } else {
+                    this.addAIGestureEffect('swipe-right');
+                }
+            }
+        }
+        
+        // Circular gesture detection
+        if (this.detectCircularGesture()) {
+            this.toggleAIFeatures();
+        }
+    }
+    
+    detectCircularGesture() {
+        // Simple circular gesture detection
+        const recent = this.userPatterns.gesturePatterns?.slice(-5) || [];
+        if (recent.length < 5) return false;
+        
+        // Check if gestures form a circular pattern
+        let totalAngle = 0;
+        for (let i = 1; i < recent.length; i++) {
+            const angle1 = Math.atan2(recent[i-1].deltaY, recent[i-1].deltaX);
+            const angle2 = Math.atan2(recent[i].deltaY, recent[i].deltaX);
+            totalAngle += Math.abs(angle2 - angle1);
+        }
+        
+        return totalAngle > Math.PI * 1.5; // More than 270 degrees
+    }
+    
+    addAIModeTransition(direction) {
+        const calculator = document.querySelector('.calculator');
+        calculator.classList.add(`ai-transition-${direction}`);
+        
+        setTimeout(() => {
+            calculator.classList.remove(`ai-transition-${direction}`);
+        }, 600);
+    }
+    
+    addAIGestureEffect(gestureType) {
+        const calculator = document.querySelector('.calculator');
+        calculator.classList.add(`ai-gesture-${gestureType}`);
+        
+        setTimeout(() => {
+            calculator.classList.remove(`ai-gesture-${gestureType}`);
+        }, 800);
+    }
+    
+    addAICalculationEffect() {
+        const display = document.querySelector('.display-main');
+        display.classList.add('ai-calculating');
+        
+        setTimeout(() => {
+            display.classList.remove('ai-calculating');
+        }, 1000);
+    }
+    
+    toggleAIFeatures() {
+        this.aiFeatures.predictiveMode = !this.aiFeatures.predictiveMode;
+        
+        // Visual feedback
+        const calculator = document.querySelector('.calculator');
+        if (this.aiFeatures.predictiveMode) {
+            calculator.classList.add('ai-enhanced');
+        } else {
+            calculator.classList.remove('ai-enhanced');
+        }
+    }
+    
+    resetPredictiveState() {
+        // Clear all predictive highlights
+        document.querySelectorAll('.btn').forEach(btn => {
+            btn.classList.remove('ai-predicted', 'ai-likely', 'ai-suggested');
+        });
+    }
+    
+    analyzeUserPatterns() {
+        // Advanced pattern analysis
+        if (this.userPatterns.buttonSequences.length < 10) return;
+        
+        // Calculate prediction accuracy
+        this.calculatePredictionAccuracy();
+        
+        // Update UI adaptation
+        this.adaptUIBasedOnUsage();
+        
+        // Save patterns periodically
+        this.saveUserPatterns();
+    }
+    
+    calculatePredictionAccuracy() {
+        // Simple accuracy calculation based on recent predictions
+        // This would be enhanced with more sophisticated ML in production
+        const recentInteractions = this.userPatterns.buttonSequences.slice(-20);
+        let correctPredictions = 0;
+        let totalPredictions = 0;
+        
+        // Simplified accuracy calculation
+        for (let i = 0; i < recentInteractions.length - 1; i++) {
+            const current = recentInteractions[i];
+            const next = recentInteractions[i + 1];
+            
+            // Check if we would have predicted this correctly
+            const predictions = this.getPredictedNextButtons({ textContent: current.value });
+            if (predictions.some(p => p.value === next.value)) {
+                correctPredictions++;
+            }
+            totalPredictions++;
+        }
+        
+        this.userPatterns.predictionScore = totalPredictions > 0 ? 
+            correctPredictions / totalPredictions : 0;
+    }
+    
+    adaptUIBasedOnUsage() {
+        // Adapt button sizes or positions based on usage
+        const buttons = document.querySelectorAll('.btn');
+        
+        buttons.forEach(button => {
+            const buttonType = this.getButtonType(button);
+            const usage = this.userPatterns.preferredOperations[buttonType] || 0;
+            const maxUsage = Math.max(...Object.values(this.userPatterns.preferredOperations));
+            
+            if (maxUsage > 0) {
+                const usageRatio = usage / maxUsage;
+                
+                // Subtle size adaptation (0.95 to 1.05)
+                const scale = 0.95 + (usageRatio * 0.1);
+                button.style.setProperty('--ai-scale', scale);
+                
+                // Usage-based glow intensity
+                const glowIntensity = usageRatio * 0.3;
+                button.style.setProperty('--ai-glow', glowIntensity);
+            }
+        });
+    }
+    
+    updateAIPredictions(button) {
+        // Update prediction model based on latest interaction
+        const buttonType = this.getButtonType(button);
+        
+        // Simple reinforcement learning
+        if (button.classList.contains('ai-predicted')) {
+            // Correct prediction - increase confidence
+            this.userPatterns.predictionScore += 0.01;
+        }
+        
+        // Update timing patterns
+        const now = Date.now();
+        const timeSinceLastInteraction = now - this.lastInteractionTime;
+        this.userPatterns.timingPatterns.push(timeSinceLastInteraction);
+        
+        // Limit pattern data
+        if (this.userPatterns.timingPatterns.length > 50) {
+            this.userPatterns.timingPatterns.shift();
+        }
+    }
+    
+    updateFrequentButtonStyles() {
+        // Apply subtle styling to frequently used buttons
+        const buttons = document.querySelectorAll('.btn');
+        const totalInteractions = Object.values(this.userPatterns.preferredOperations)
+            .reduce((sum, count) => sum + count, 0);
+        
+        if (totalInteractions === 0) return;
+        
+        buttons.forEach(button => {
+            const buttonType = this.getButtonType(button);
+            const usage = this.userPatterns.preferredOperations[buttonType] || 0;
+            const usageRatio = usage / totalInteractions;
+            
+            if (usageRatio > 0.15) { // More than 15% usage
+                button.classList.add('ai-frequent');
+            } else {
+                button.classList.remove('ai-frequent');
+            }
+        });
+    }
+    
+    saveUserPatterns() {
+        // Save AI learning data to localStorage
+        try {
+            const patternsToSave = {
+                preferredOperations: this.userPatterns.preferredOperations,
+                predictionScore: this.userPatterns.predictionScore,
+                aiFeatures: this.aiFeatures,
+                lastUpdated: Date.now()
+            };
+            
+            localStorage.setItem('calculatorAIPatterns', JSON.stringify(patternsToSave));
+        } catch (error) {
+            console.log('Could not save AI patterns:', error);
+        }
+    }
+    
+    loadUserPatterns() {
+        // Load AI learning data from localStorage
+        try {
+            const saved = localStorage.getItem('calculatorAIPatterns');
+            if (saved) {
+                const patterns = JSON.parse(saved);
+                this.userPatterns.preferredOperations = patterns.preferredOperations || {};
+                this.userPatterns.predictionScore = patterns.predictionScore || 0;
+                this.aiFeatures = { ...this.aiFeatures, ...patterns.aiFeatures };
+            }
+        } catch (error) {
+            console.log('Could not load AI patterns:', error);
+        }
     }
 }
 
