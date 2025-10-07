@@ -32,6 +32,16 @@
     --quantum-blue: #4d79ff;
     --plasma-purple: #9d4edd;
     
+    /* Liquid Morphing Design Variables */
+    --liquid-primary: rgba(0, 255, 255, 0.8);
+    --liquid-secondary: rgba(255, 0, 255, 0.6);
+    --liquid-tertiary: rgba(57, 255, 20, 0.4);
+    --morphing-radius: 25px;
+    --fluid-transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --organic-easing: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --wave-amplitude: 10px;
+    --blob-scale: 1;
+    
     /* Button colors */
     --btn-number: #ffffff;
     --btn-number-hover: #f8fafc;
@@ -412,7 +422,7 @@ body::before {
         linear-gradient(45deg, rgba(0, 255, 255, 0.03), rgba(255, 0, 255, 0.03));
     -webkit-backdrop-filter: blur(30px);
     backdrop-filter: blur(30px);
-    border-radius: 35px;
+    border-radius: var(--morphing-radius);
     padding: 45px;
     box-shadow: 
         0 40px 80px rgba(0, 0, 0, 0.3),
@@ -422,12 +432,24 @@ body::before {
         0 0 100px rgba(255, 0, 255, 0.05);
     border: 1px solid;
     border-image: var(--holographic) 1;
-    transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    transition: var(--fluid-transition);
     position: relative;
     overflow: hidden;
     transform-style: preserve-3d;
     perspective: 1000px;
-    animation: floatingCalculator 20s ease-in-out infinite;
+    animation: floatingCalculator 20s ease-in-out infinite, liquidMorphing 15s ease-in-out infinite;
+    
+    /* Liquid morphing shape */
+    clip-path: polygon(
+        0% 15%,
+        15% 0%,
+        85% 0%,
+        100% 15%,
+        100% 85%,
+        85% 100%,
+        15% 100%,
+        0% 85%
+    );
 }
 
 .calculator::before {
@@ -502,7 +524,7 @@ body::before {
         linear-gradient(90deg, transparent 49%, rgba(0, 255, 255, 0.02) 50%, transparent 51%);
     -webkit-backdrop-filter: blur(25px);
     backdrop-filter: blur(25px);
-    border-radius: 30px;
+    border-radius: calc(var(--morphing-radius) + 5px);
     padding: 40px;
     margin-bottom: 40px;
     min-height: 160px;
@@ -519,7 +541,20 @@ body::before {
     overflow: hidden;
     border: 2px solid;
     border-image: linear-gradient(45deg, var(--neon-cyan), var(--neon-pink), var(--neon-cyan)) 1;
-    animation: displayGlow 6s ease-in-out infinite alternate;
+    animation: displayGlow 6s ease-in-out infinite alternate, liquidDisplay 12s ease-in-out infinite;
+    
+    /* Liquid wave effect */
+    clip-path: polygon(
+        0% 10%,
+        10% 0%,
+        90% 0%,
+        100% 10%,
+        100% 90%,
+        90% 100%,
+        10% 100%,
+        0% 90%
+    );
+    transition: var(--fluid-transition);
 }
 
 .display-container::before {
@@ -626,11 +661,11 @@ body::before {
 .btn {
     padding: 24px;
     border: none;
-    border-radius: 25px;
+    border-radius: var(--morphing-radius);
     font-size: 1.3rem;
     font-weight: 800;
     cursor: pointer;
-    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    transition: var(--fluid-transition);
     background: 
         linear-gradient(145deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01)),
         radial-gradient(circle at center, rgba(0, 255, 255, 0.05), transparent 70%);
@@ -655,6 +690,10 @@ body::before {
     border: 1px solid rgba(0, 255, 255, 0.2);
     -webkit-backdrop-filter: blur(15px);
     backdrop-filter: blur(15px);
+    
+    /* Organic liquid shape */
+    clip-path: circle(45% at 50% 50%);
+    animation: organicPulse 8s ease-in-out infinite;
 }
 
 .btn::before {
@@ -699,7 +738,11 @@ body::before {
     border: 1px solid var(--neon-cyan);
     color: var(--neon-cyan);
     text-shadow: 0 0 10px currentColor;
-    animation: quantumFloat 2s ease-in-out infinite;
+    animation: quantumFloat 2s ease-in-out infinite, liquidHover 1s var(--organic-easing) infinite;
+    
+    /* Liquid morphing on hover */
+    clip-path: ellipse(50% 45% at 50% 50%);
+    border-radius: calc(var(--morphing-radius) * 1.5);
 }
 
 .btn:hover::before {
@@ -2122,5 +2165,431 @@ body::before {
     
     .calculator.ai-enhanced {
         animation: none !important;
+    }
+}
+
+/* Liquid Morphing Design Animations */
+
+/* Calculator liquid morphing */
+@keyframes liquidMorphing {
+    0%, 100% {
+        clip-path: polygon(
+            0% 15%,
+            15% 0%,
+            85% 0%,
+            100% 15%,
+            100% 85%,
+            85% 100%,
+            15% 100%,
+            0% 85%
+        );
+        border-radius: var(--morphing-radius);
+    }
+    25% {
+        clip-path: polygon(
+            0% 20%,
+            20% 5%,
+            80% 0%,
+            100% 20%,
+            95% 80%,
+            80% 100%,
+            20% 95%,
+            0% 80%
+        );
+        border-radius: calc(var(--morphing-radius) * 1.2);
+    }
+    50% {
+        clip-path: polygon(
+            5% 15%,
+            15% 5%,
+            85% 5%,
+            95% 15%,
+            100% 85%,
+            85% 95%,
+            15% 95%,
+            5% 85%
+        );
+        border-radius: calc(var(--morphing-radius) * 0.8);
+    }
+    75% {
+        clip-path: polygon(
+            0% 10%,
+            25% 0%,
+            75% 5%,
+            100% 25%,
+            95% 75%,
+            75% 100%,
+            25% 95%,
+            0% 75%
+        );
+        border-radius: calc(var(--morphing-radius) * 1.4);
+    }
+}
+
+/* Button organic pulsing */
+@keyframes organicPulse {
+    0%, 100% {
+        clip-path: circle(45% at 50% 50%);
+        transform: scale(var(--blob-scale, 1));
+    }
+    25% {
+        clip-path: ellipse(48% 42% at 52% 48%);
+        transform: scale(calc(var(--blob-scale, 1) * 1.02));
+    }
+    50% {
+        clip-path: ellipse(42% 48% at 48% 52%);
+        transform: scale(calc(var(--blob-scale, 1) * 0.98));
+    }
+    75% {
+        clip-path: ellipse(47% 45% at 50% 50%);
+        transform: scale(calc(var(--blob-scale, 1) * 1.01));
+    }
+}
+
+/* Liquid hover animation */
+@keyframes liquidHover {
+    0%, 100% {
+        clip-path: ellipse(50% 45% at 50% 50%);
+    }
+    25% {
+        clip-path: ellipse(52% 47% at 48% 52%);
+    }
+    50% {
+        clip-path: ellipse(48% 43% at 52% 48%);
+    }
+    75% {
+        clip-path: ellipse(51% 46% at 49% 51%);
+    }
+}
+
+/* Display liquid animation */
+@keyframes liquidDisplay {
+    0%, 100% {
+        clip-path: polygon(
+            0% 10%,
+            10% 0%,
+            90% 0%,
+            100% 10%,
+            100% 90%,
+            90% 100%,
+            10% 100%,
+            0% 90%
+        );
+    }
+    33% {
+        clip-path: polygon(
+            5% 15%,
+            15% 5%,
+            85% 2%,
+            98% 15%,
+            95% 85%,
+            85% 98%,
+            15% 95%,
+            2% 85%
+        );
+    }
+    66% {
+        clip-path: polygon(
+            2% 12%,
+            12% 2%,
+            88% 5%,
+            95% 18%,
+            98% 88%,
+            88% 95%,
+            12% 98%,
+            5% 88%
+        );
+    }
+}
+
+/* Liquid wave effects */
+@keyframes liquidWave {
+    0%, 100% {
+        transform: translateY(0px) translateX(0px);
+    }
+    25% {
+        transform: translateY(-5px) translateX(3px);
+    }
+    50% {
+        transform: translateY(-8px) translateX(0px);
+    }
+    75% {
+        transform: translateY(-3px) translateX(-3px);
+    }
+}
+
+/* Fluid grid morphing */
+.button-grid {
+    transition: var(--fluid-transition);
+    animation: fluidGrid 20s ease-in-out infinite;
+}
+
+@keyframes fluidGrid {
+    0%, 100% {
+        transform: perspective(1000px) rotateX(0deg) rotateY(0deg);
+        gap: 12px;
+    }
+    25% {
+        transform: perspective(1000px) rotateX(2deg) rotateY(1deg);
+        gap: 14px;
+    }
+    50% {
+        transform: perspective(1000px) rotateX(0deg) rotateY(-1deg);
+        gap: 10px;
+    }
+    75% {
+        transform: perspective(1000px) rotateX(-1deg) rotateY(0deg);
+        gap: 13px;
+    }
+}
+
+/* Enhanced button morphing states */
+.btn-number {
+    --blob-scale: 1;
+    clip-path: circle(42% at 50% 50%);
+    animation: organicPulse 10s ease-in-out infinite;
+}
+
+.btn-operator {
+    --blob-scale: 1.05;
+    clip-path: ellipse(45% 48% at 50% 50%);
+    animation: organicPulse 8s ease-in-out infinite reverse;
+}
+
+.btn-equals {
+    --blob-scale: 1.1;
+    clip-path: ellipse(48% 45% at 50% 50%);
+    animation: organicPulse 6s ease-in-out infinite, liquidPulse 3s ease-in-out infinite;
+}
+
+.btn-scientific {
+    --blob-scale: 0.95;
+    clip-path: polygon(20% 0%, 80% 0%, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0% 80%, 0% 20%);
+    animation: organicPulse 12s ease-in-out infinite;
+}
+
+@keyframes liquidPulse {
+    0%, 100% {
+        box-shadow: 
+            0 0 30px var(--liquid-primary),
+            0 0 60px var(--liquid-secondary),
+            inset 0 0 20px var(--liquid-tertiary);
+    }
+    50% {
+        box-shadow: 
+            0 0 50px var(--liquid-secondary),
+            0 0 100px var(--liquid-primary),
+            inset 0 0 30px var(--liquid-tertiary);
+    }
+}
+
+/* Liquid mode transitions */
+.calculator.mode-transition {
+    animation: liquidModeTransition 1s var(--organic-easing);
+}
+
+@keyframes liquidModeTransition {
+    0% {
+        transform: scale(1) rotateY(0deg);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(0.9) rotateY(180deg);
+        opacity: 0.7;
+        clip-path: ellipse(60% 40% at 50% 50%);
+    }
+    100% {
+        transform: scale(1) rotateY(360deg);
+        opacity: 1;
+    }
+}
+
+/* Liquid history panel */
+.history-panel {
+    clip-path: polygon(
+        10% 0%,
+        90% 0%,
+        100% 10%,
+        100% 90%,
+        90% 100%,
+        10% 100%,
+        0% 90%,
+        0% 10%
+    );
+    animation: liquidHistory 18s ease-in-out infinite;
+    transition: var(--fluid-transition);
+}
+
+@keyframes liquidHistory {
+    0%, 100% {
+        clip-path: polygon(
+            10% 0%,
+            90% 0%,
+            100% 10%,
+            100% 90%,
+            90% 100%,
+            10% 100%,
+            0% 90%,
+            0% 10%
+        );
+    }
+    50% {
+        clip-path: polygon(
+            15% 5%,
+            85% 2%,
+            98% 15%,
+            95% 85%,
+            85% 98%,
+            15% 95%,
+            2% 85%,
+            5% 15%
+        );
+    }
+}
+
+/* Liquid unit converter */
+.unit-converter {
+    clip-path: polygon(
+        5% 10%,
+        95% 5%,
+        100% 15%,
+        95% 90%,
+        90% 100%,
+        5% 95%,
+        0% 85%,
+        5% 15%
+    );
+    animation: liquidConverter 22s ease-in-out infinite;
+    transition: var(--fluid-transition);
+}
+
+@keyframes liquidConverter {
+    0%, 100% {
+        clip-path: polygon(
+            5% 10%,
+            95% 5%,
+            100% 15%,
+            95% 90%,
+            90% 100%,
+            5% 95%,
+            0% 85%,
+            5% 15%
+        );
+    }
+    33% {
+        clip-path: polygon(
+            8% 12%,
+            92% 8%,
+            98% 18%,
+            92% 88%,
+            88% 98%,
+            8% 92%,
+            2% 82%,
+            8% 18%
+        );
+    }
+    66% {
+        clip-path: polygon(
+            3% 8%,
+            97% 3%,
+            100% 13%,
+            97% 92%,
+            92% 100%,
+            3% 97%,
+            0% 87%,
+            3% 13%
+        );
+    }
+}
+
+/* Interactive liquid effects */
+.btn:active {
+    animation: liquidPress 0.3s var(--organic-easing);
+    clip-path: ellipse(40% 35% at 50% 60%);
+}
+
+@keyframes liquidPress {
+    0% {
+        transform: scale(1);
+        clip-path: circle(45% at 50% 50%);
+    }
+    50% {
+        transform: scale(0.9);
+        clip-path: ellipse(35% 30% at 50% 65%);
+    }
+    100% {
+        transform: scale(1);
+        clip-path: ellipse(40% 35% at 50% 60%);
+    }
+}
+
+/* Fluid background elements */
+.calculator::after {
+    background: 
+        radial-gradient(circle at 20% 20%, var(--liquid-primary) 0%, transparent 40%),
+        radial-gradient(circle at 80% 80%, var(--liquid-secondary) 0%, transparent 40%),
+        radial-gradient(circle at 60% 30%, var(--liquid-tertiary) 0%, transparent 35%);
+    animation: liquidBackground 16s ease-in-out infinite;
+}
+
+@keyframes liquidBackground {
+    0%, 100% {
+        transform: scale(1) rotate(0deg);
+        opacity: 0.3;
+    }
+    25% {
+        transform: scale(1.1) rotate(90deg);
+        opacity: 0.5;
+    }
+    50% {
+        transform: scale(0.9) rotate(180deg);
+        opacity: 0.4;
+    }
+    75% {
+        transform: scale(1.05) rotate(270deg);
+        opacity: 0.6;
+    }
+}
+
+/* Responsive liquid design */
+@media (max-width: 768px) {
+    .calculator {
+        --morphing-radius: 20px;
+        animation: liquidMorphing 10s ease-in-out infinite;
+    }
+    
+    .btn {
+        --blob-scale: 0.9;
+        clip-path: circle(40% at 50% 50%);
+    }
+    
+    .display-container {
+        border-radius: calc(var(--morphing-radius) + 3px);
+    }
+}
+
+@media (max-width: 480px) {
+    .calculator {
+        --morphing-radius: 15px;
+        --wave-amplitude: 5px;
+    }
+    
+    .btn {
+        --blob-scale: 0.8;
+        clip-path: circle(38% at 50% 50%);
+    }
+}
+
+/* Accessibility for liquid design */
+@media (prefers-reduced-motion: reduce) {
+    .calculator,
+    .btn,
+    .display-container,
+    .history-panel,
+    .unit-converter,
+    .button-grid {
+        animation: none !important;
+        clip-path: none !important;
+        border-radius: 15px !important;
     }
 }
