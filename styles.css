@@ -1769,3 +1769,358 @@ body::before {
     0% { outline-color: var(--neon-cyan); }
     100% { outline-color: var(--neon-purple); }
 }
+
+/* AI-Powered Animations and Effects */
+
+/* AI Predictive Button States */
+.btn.ai-predicted {
+    box-shadow: 
+        0 0 30px var(--neon-cyan),
+        0 0 60px rgba(0, 255, 255, 0.4),
+        inset 0 0 20px rgba(0, 255, 255, 0.2);
+    border: 2px solid var(--neon-cyan);
+    animation: aiPredicted 2s ease-in-out infinite;
+    transform: scale(1.05);
+}
+
+.btn.ai-likely {
+    box-shadow: 
+        0 0 20px var(--neon-purple),
+        0 0 40px rgba(255, 0, 255, 0.3);
+    border: 1px solid var(--neon-purple);
+    animation: aiLikely 3s ease-in-out infinite;
+    transform: scale(1.02);
+}
+
+.btn.ai-suggested {
+    box-shadow: 
+        0 0 15px var(--neon-green),
+        0 0 30px rgba(57, 255, 20, 0.2);
+    border: 1px solid rgba(57, 255, 20, 0.5);
+    animation: aiSuggested 4s ease-in-out infinite;
+}
+
+.btn.ai-frequent {
+    background: linear-gradient(145deg, 
+        rgba(0, 255, 255, 0.1), 
+        rgba(255, 0, 255, 0.05));
+    box-shadow: 
+        0 0 10px rgba(0, 255, 255, 0.3),
+        inset 0 0 10px rgba(0, 255, 255, 0.1);
+    position: relative;
+}
+
+.btn.ai-frequent::before {
+    content: '';
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    width: 6px;
+    height: 6px;
+    background: var(--neon-cyan);
+    border-radius: 50%;
+    animation: aiFrequentIndicator 2s ease-in-out infinite;
+}
+
+/* AI Animation Keyframes */
+@keyframes aiPredicted {
+    0%, 100% { 
+        box-shadow: 
+            0 0 30px var(--neon-cyan),
+            0 0 60px rgba(0, 255, 255, 0.4),
+            inset 0 0 20px rgba(0, 255, 255, 0.2);
+    }
+    50% { 
+        box-shadow: 
+            0 0 50px var(--neon-cyan),
+            0 0 100px rgba(0, 255, 255, 0.6),
+            inset 0 0 30px rgba(0, 255, 255, 0.3);
+    }
+}
+
+@keyframes aiLikely {
+    0%, 100% { 
+        box-shadow: 
+            0 0 20px var(--neon-purple),
+            0 0 40px rgba(255, 0, 255, 0.3);
+    }
+    50% { 
+        box-shadow: 
+            0 0 35px var(--neon-purple),
+            0 0 70px rgba(255, 0, 255, 0.5);
+    }
+}
+
+@keyframes aiSuggested {
+    0%, 100% { 
+        box-shadow: 
+            0 0 15px var(--neon-green),
+            0 0 30px rgba(57, 255, 20, 0.2);
+    }
+    50% { 
+        box-shadow: 
+            0 0 25px var(--neon-green),
+            0 0 50px rgba(57, 255, 20, 0.4);
+    }
+}
+
+@keyframes aiFrequentIndicator {
+    0%, 100% { 
+        opacity: 0.7;
+        transform: scale(1);
+    }
+    50% { 
+        opacity: 1;
+        transform: scale(1.2);
+    }
+}
+
+/* AI Calculator States */
+.calculator.ai-enhanced {
+    border: 2px solid var(--neon-cyan);
+    box-shadow: 
+        0 0 50px rgba(0, 255, 255, 0.3),
+        0 40px 80px rgba(0, 0, 0, 0.3),
+        inset 0 0 30px rgba(0, 255, 255, 0.1);
+    animation: aiEnhanced 3s ease-in-out infinite;
+}
+
+.calculator.ai-transition-up {
+    animation: aiTransitionUp 0.6s ease-out;
+}
+
+.calculator.ai-transition-down {
+    animation: aiTransitionDown 0.6s ease-out;
+}
+
+.calculator.ai-gesture-swipe-left {
+    animation: aiGestureLeft 0.8s ease-out;
+}
+
+.calculator.ai-gesture-swipe-right {
+    animation: aiGestureRight 0.8s ease-out;
+}
+
+/* AI Transition Animations */
+@keyframes aiEnhanced {
+    0%, 100% { 
+        filter: hue-rotate(0deg) brightness(1);
+    }
+    25% { 
+        filter: hue-rotate(90deg) brightness(1.1);
+    }
+    50% { 
+        filter: hue-rotate(180deg) brightness(1.2);
+    }
+    75% { 
+        filter: hue-rotate(270deg) brightness(1.1);
+    }
+}
+
+@keyframes aiTransitionUp {
+    0% { 
+        transform: translateY(0) rotateX(0deg);
+    }
+    50% { 
+        transform: translateY(-20px) rotateX(10deg);
+        box-shadow: 0 60px 120px rgba(0, 255, 255, 0.4);
+    }
+    100% { 
+        transform: translateY(0) rotateX(0deg);
+    }
+}
+
+@keyframes aiTransitionDown {
+    0% { 
+        transform: translateY(0) rotateX(0deg);
+    }
+    50% { 
+        transform: translateY(20px) rotateX(-10deg);
+        box-shadow: 0 60px 120px rgba(255, 0, 255, 0.4);
+    }
+    100% { 
+        transform: translateY(0) rotateX(0deg);
+    }
+}
+
+@keyframes aiGestureLeft {
+    0% { transform: translateX(0) rotateY(0deg); }
+    50% { transform: translateX(-30px) rotateY(-15deg); }
+    100% { transform: translateX(0) rotateY(0deg); }
+}
+
+@keyframes aiGestureRight {
+    0% { transform: translateX(0) rotateY(0deg); }
+    50% { transform: translateX(30px) rotateY(15deg); }
+    100% { transform: translateX(0) rotateY(0deg); }
+}
+
+/* AI Display Effects */
+.display-main.ai-calculating {
+    background: linear-gradient(45deg, 
+        var(--neon-cyan), 
+        var(--neon-purple), 
+        var(--neon-pink),
+        var(--neon-cyan));
+    background-size: 400% 400%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: aiCalculating 1s ease-in-out;
+}
+
+@keyframes aiCalculating {
+    0% { 
+        background-position: 0% 50%;
+        filter: brightness(1);
+    }
+    25% { 
+        background-position: 100% 50%;
+        filter: brightness(1.3);
+    }
+    50% { 
+        background-position: 200% 50%;
+        filter: brightness(1.5);
+    }
+    75% { 
+        background-position: 300% 50%;
+        filter: brightness(1.3);
+    }
+    100% { 
+        background-position: 400% 50%;
+        filter: brightness(1);
+    }
+}
+
+/* AI Suggestions Panel */
+.ai-suggestions-panel {
+    position: absolute;
+    top: -60px;
+    left: 0;
+    right: 0;
+    background: linear-gradient(145deg, 
+        rgba(0, 255, 255, 0.1), 
+        rgba(255, 0, 255, 0.05));
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    border-radius: 15px;
+    padding: 10px 15px;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1000;
+    pointer-events: none;
+}
+
+.ai-suggestions-panel.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.ai-header {
+    font-size: 0.8rem;
+    color: var(--neon-cyan);
+    font-weight: 600;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+.ai-suggestion {
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+    padding: 2px 0;
+    text-align: center;
+    animation: aiSuggestionPulse 2s ease-in-out infinite;
+}
+
+.ai-suggestion.operator { color: var(--neon-blue); }
+.ai-suggestion.number { color: var(--neon-green); }
+.ai-suggestion.equals { color: var(--neon-pink); }
+
+@keyframes aiSuggestionPulse {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 1; }
+}
+
+/* Adaptive Button Scaling */
+.btn {
+    transform: scale(var(--ai-scale, 1));
+    transition: all 0.3s ease, transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn::after {
+    opacity: var(--ai-glow, 0);
+}
+
+/* AI Learning Indicators */
+.calculator::before {
+    opacity: var(--ai-activity, 0.4);
+}
+
+.ai-learning-indicator {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 8px;
+    height: 8px;
+    background: var(--neon-cyan);
+    border-radius: 50%;
+    opacity: 0;
+    animation: aiLearning 2s ease-in-out infinite;
+}
+
+.calculator.ai-enhanced .ai-learning-indicator {
+    opacity: 1;
+}
+
+@keyframes aiLearning {
+    0%, 100% { 
+        transform: scale(1);
+        opacity: 0.5;
+    }
+    50% { 
+        transform: scale(1.5);
+        opacity: 1;
+    }
+}
+
+/* Responsive AI Features */
+@media (max-width: 768px) {
+    .ai-suggestions-panel {
+        top: -50px;
+        padding: 8px 12px;
+    }
+    
+    .ai-header {
+        font-size: 0.7rem;
+        margin-bottom: 3px;
+    }
+    
+    .ai-suggestion {
+        font-size: 0.6rem;
+    }
+    
+    .btn.ai-predicted {
+        transform: scale(1.03);
+    }
+    
+    .btn.ai-likely {
+        transform: scale(1.01);
+    }
+}
+
+/* Accessibility for AI features */
+@media (prefers-reduced-motion: reduce) {
+    .ai-suggestions-panel,
+    .btn.ai-predicted,
+    .btn.ai-likely,
+    .btn.ai-suggested {
+        animation: none !important;
+        transition: none !important;
+    }
+    
+    .calculator.ai-enhanced {
+        animation: none !important;
+    }
+}
