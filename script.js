@@ -333,28 +333,42 @@ class AdvancedCalculator {
         this.addButtonAnimation(event.target);
     }
     
-    // Mode switching
+    // Mode switching with liquid morphing
     switchMode(mode) {
         this.currentMode = mode;
+        
+        // Add liquid morphing transition
+        const calculator = document.querySelector('.calculator');
+        calculator.classList.add('mode-transition');
         
         // Update active mode button
         document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.remove('active'));
         document.getElementById(mode + 'Mode').classList.add('active');
         
-        // Show/hide appropriate grid
-        const basicGrid = document.getElementById('basicGrid');
-        const scientificGrid = document.getElementById('scientificGrid');
+        // Animate mode transition
+        setTimeout(() => {
+            // Show/hide appropriate grid
+            const basicGrid = document.getElementById('basicGrid');
+            const scientificGrid = document.getElementById('scientificGrid');
+            
+            if (mode === 'basic') {
+                basicGrid.classList.remove('hidden');
+                scientificGrid.classList.add('hidden');
+                this.morphButtonsForMode('basic');
+            } else {
+                basicGrid.classList.add('hidden');
+                scientificGrid.classList.remove('hidden');
+                this.morphButtonsForMode('scientific');
+            }
+            
+            // Clear calculator when switching modes
+            this.clearAll();
+        }, 500);
         
-        if (mode === 'basic') {
-            basicGrid.classList.remove('hidden');
-            scientificGrid.classList.add('hidden');
-        } else {
-            basicGrid.classList.add('hidden');
-            scientificGrid.classList.remove('hidden');
-        }
-        
-        // Clear calculator when switching modes
-        this.clearAll();
+        // Remove transition class
+        setTimeout(() => {
+            calculator.classList.remove('mode-transition');
+        }, 1000);
     }
     
     // History management
