@@ -410,12 +410,12 @@ body::before {
 }
 
 .theme-toggle:hover i {
-    transform: rotate(360deg) scale(1.2);
-    color: #f093fb;
+    transform: rotate(180deg) scale(1.1);
+    color: #6366f1;
 }
 
 .theme-toggle:active {
-    transform: translateY(-4px) scale(1.05);
+    transform: scale(0.95);
     transition: all 0.1s ease;
 }
 
