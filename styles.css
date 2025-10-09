@@ -552,24 +552,20 @@ body::before {
 }
 
 .display-main {
-    font-size: 3.8rem;
-    font-weight: 900;
+    font-size: 2.5rem;
+    font-weight: 700;
     text-align: right;
     word-break: break-all;
-    min-height: 80px;
+    min-height: 60px;
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-    background: var(--holographic);
-    background-size: 400% 400%;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    transition: all 0.3s ease;
+    color: var(--text-primary);
     position: relative;
-    letter-spacing: -0.03em;
-    animation: gradientShift 4s ease-in-out infinite, holographicGlow 3s ease-in-out infinite alternate;
-    filter: drop-shadow(0 0 10px rgba(0, 255, 255, 0.5)) drop-shadow(0 0 20px rgba(255, 0, 255, 0.3));
+    letter-spacing: -0.02em;
+    font-feature-settings: 'tnum' 1;
+    font-variant-numeric: tabular-nums;
 }
 
 .display-main::before {
@@ -694,23 +690,15 @@ body::before {
 }
 
 .btn:hover {
-    transform: translateY(-10px) scale(1.08) rotateX(15deg) rotateZ(2deg);
+    transform: translateY(-2px) scale(1.02);
+    background: 
+        linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.04)),
+        linear-gradient(135deg, rgba(102, 126, 234, 0.05), rgba(139, 92, 246, 0.03));
     box-shadow: 
-        0 20px 60px rgba(0, 0, 0, 0.3),
-        0 0 0 1px rgba(255, 255, 255, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.4),
-        0 0 40px var(--neon-cyan),
-        0 0 80px rgba(0, 255, 255, 0.3),
-        0 0 120px rgba(255, 0, 255, 0.2);
-    z-index: 100;
-    border: 1px solid var(--neon-cyan);
-    color: var(--neon-cyan);
-    text-shadow: 0 0 10px currentColor;
-    animation: quantumFloat 2s ease-in-out infinite, liquidHover 1s var(--organic-easing) infinite;
-    
-    /* Liquid morphing on hover */
-    clip-path: ellipse(50% 45% at 50% 50%);
-    border-radius: calc(var(--morphing-radius) * 1.5);
+        0 8px 20px rgba(0, 0, 0, 0.15),
+        0 2px 8px rgba(0, 0, 0, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .btn:hover::before {
