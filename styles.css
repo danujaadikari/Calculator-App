@@ -283,6 +283,12 @@ body::before {
     padding: 0;
 }
 
+.title-section {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
 .title {
     font-size: 2.75rem;
     font-weight: 700;
@@ -298,7 +304,17 @@ body::before {
     animation: gradientShift 8s ease-in-out infinite;
     position: relative;
     letter-spacing: -0.02em;
-    margin-bottom: 8px;
+    margin: 0;
+}
+
+.subtitle {
+    font-size: 0.95rem;
+    font-weight: 400;
+    color: rgba(148, 163, 184, 0.8);
+    margin: 0;
+    margin-left: 56px;
+    letter-spacing: 0.01em;
+    opacity: 0.9;
 }
 
 .title::after {
@@ -1236,25 +1252,39 @@ body::before {
     background: var(--text-secondary);
 }
 
-/* Responsive Design */
+/* Professional Responsive Design */
 @media (max-width: 1024px) {
     .calculator-wrapper {
         grid-template-columns: 1fr;
-        gap: 20px;
+        gap: 24px;
     }
     
     .history-panel {
         max-height: 300px;
     }
+    
+    .title {
+        font-size: 2.25rem;
+    }
+    
+    .subtitle {
+        font-size: 0.875rem;
+        margin-left: 48px;
+    }
 }
 
 @media (max-width: 768px) {
     .container {
-        padding: 15px;
+        padding: 24px 16px;
     }
     
     .title {
         font-size: 2rem;
+    }
+    
+    .subtitle {
+        font-size: 0.8rem;
+        margin-left: 40px;
     }
     
     .calculator {
