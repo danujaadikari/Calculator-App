@@ -1360,3 +1360,56 @@ function convertWeight(direction) {
 function convertTemperature(direction) {
     converter.convertTemperature(direction);
 }
+
+// Quick Action Functions
+function calculatePercentage() {
+    const currentValue = parseFloat(calculator.displayValue) || 0;
+    if (currentValue !== 0) {
+        const result = currentValue / 100;
+        calculator.displayValue = result.toString();
+        calculator.updateDisplay();
+        calculator.addToHistory(`${currentValue}%`, result.toString());
+    }
+}
+
+function calculateSquareRoot() {
+    const currentValue = parseFloat(calculator.displayValue) || 0;
+    if (currentValue >= 0) {
+        const result = Math.sqrt(currentValue);
+        calculator.displayValue = result.toString();
+        calculator.updateDisplay();
+        calculator.addToHistory(`√${currentValue}`, result.toString());
+    } else {
+        calculator.displayValue = 'Error';
+        calculator.updateDisplay();
+    }
+}
+
+function calculatePower() {
+    const currentValue = parseFloat(calculator.displayValue) || 0;
+    const result = Math.pow(currentValue, 2);
+    calculator.displayValue = result.toString();
+    calculator.updateDisplay();
+    calculator.addToHistory(`${currentValue}²`, result.toString());
+}
+
+function calculateFactorial() {
+    const currentValue = parseInt(calculator.displayValue) || 0;
+    if (currentValue >= 0 && currentValue <= 170) {
+        let result = 1;
+        for (let i = 2; i <= currentValue; i++) {
+            result *= i;
+        }
+        calculator.displayValue = result.toString();
+        calculator.updateDisplay();
+        calculator.addToHistory(`${currentValue}!`, result.toString());
+    } else {
+        calculator.displayValue = 'Error';
+        calculator.updateDisplay();
+    }
+}
+
+function clearHistory() {
+    calculator.history = [];
+    calculator.updateHistoryDisplay();
+}
