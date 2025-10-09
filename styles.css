@@ -450,6 +450,22 @@ body {
     .display-main {
         font-size: 1.5rem;
     }
+    
+    .developer-info {
+        margin-top: 24px;
+    }
+    
+    .developer-card {
+        padding: 20px;
+    }
+    
+    .developer-card h3 {
+        font-size: 1rem;
+    }
+    
+    .developer-card p {
+        font-size: 0.8rem;
+    }
 }
 
 /* Accessibility */
@@ -458,6 +474,68 @@ body {
 .mode-btn:focus {
     outline: 2px solid #3b82f6;
     outline-offset: 2px;
+}
+
+/* Developer Footer */
+.developer-info {
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border-color);
+}
+
+.developer-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 24px;
+    text-align: center;
+    box-shadow: var(--shadow-light);
+    transition: all 0.2s ease;
+}
+
+.developer-card:hover {
+    box-shadow: var(--shadow-medium);
+}
+
+.developer-card h3 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.developer-card p {
+    margin: 8px 0;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    line-height: 1.5;
+}
+
+.developer-card strong {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.developer-card a {
+    color: #3b82f6;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+
+.developer-card a:hover {
+    color: #2563eb;
+    text-decoration: underline;
+}
+
+.developer-card a:focus {
+    outline: 2px solid #3b82f6;
+    outline-offset: 2px;
+    border-radius: 4px;
 }
 
 /* Print Styles */
@@ -474,5 +552,10 @@ body {
     .calculator {
         box-shadow: none;
         border: 1px solid #ccc;
+    }
+    
+    .developer-info {
+        margin-top: 20px;
+        page-break-inside: avoid;
     }
 }
